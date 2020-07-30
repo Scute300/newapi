@@ -12,8 +12,6 @@ class UserController {
 		// get user data from signup form
 		const userData = request.only(['name', 'username', 'email','number','password']);
 		//console.log(userData);
-		try {
-            console.log(userData)
             const rules = {
                 name: 'required|string|max:25',
                 username: 'required|string|max:15|unique:users,username',
@@ -48,8 +46,9 @@ class UserController {
             } else {
                 // save user to database
             console.log(4)
+             try{
                 const user = await new User()
-                user.name = userData.name.username.replace(/ /g, "_")
+                user.name = userData.name
                 user.username = userData.username.replace(/ /g, "_")
                 user.email = userData.email
                 user.number= userData.number
@@ -68,15 +67,8 @@ class UserController {
                     status: 'success',
                     data: token
                 })
-
+}catch(error){console.log(error)}
             }
-		} catch (error) {
-			console.log(error);
-			return response.status(404).json({
-				status: 'error',
-				message: 'Error interno, intentalo mas tarde'
-			})
-		}
 	}
 
     async login ({ request, auth, response }) {
