@@ -13,6 +13,7 @@ class UserController {
 		const userData = request.only(['name', 'username', 'email','number','password']);
 		//console.log(userData);
 		try {
+            console.log(userData)
             const rules = {
                 name: 'required|string|max:25|alpha',
                 username: 'required|string|max:15|unique:users,username',
@@ -35,7 +36,7 @@ class UserController {
                 'password.min' : 'Contraseña debe tener al menos 8 caracteres',
                 'password.max' : 'Contraseña no puede ser mayor a 20 caracteres'
               }
-
+              
             const validation = await validate(userData, rules, messages)
             if (validation.fails()){
                 const message = validation.messages()
@@ -80,7 +81,7 @@ class UserController {
 
     async login ({ request, auth, response }) {
         try {
-            const data = request.only(['email, password'])
+            const data = request.only(['email','password'])
 
             const rules = {
                 email: 'required|string|max:60|min:10',
