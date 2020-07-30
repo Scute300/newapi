@@ -47,7 +47,7 @@ class UserController {
                 // save user to database
             console.log(4)
              try{
-                const user = await new User()
+                let user = await new User()
                 user.username = userData.username.replace(/ /g, "_")
                 user.name = userData.name
                 user.email = userData.email
