@@ -5,7 +5,7 @@ const Env = use('Env')
 
 /** @type {import('@adonisjs/ignitor/src/Helpers')} */
 const Helpers = use('Helpers')
-
+Env.getOrFail('APP_SECRET')
 module.exports = {
   /*
   |--------------------------------------------------------------------------
