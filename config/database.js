@@ -81,7 +81,7 @@ module.exports = {
     },
     debug: Env.get('DB_DEBUG', false)
   },
-  maria: {
+  mariadb: {
 	  client: 'mysql2',
 	  connection: {
 		host: Env.get('DB_HOST', 'localhost'),
