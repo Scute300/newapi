@@ -32,10 +32,12 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/me', 'UserController.me')
-  Route.group(()=>{
-    Route.put('/changeavatar', 'UserController.updateProfilePic')
-  })
-  .prefix('account')
 })
 .prefix('api/v2')
+.middleware('auth')
+
+Route.group(()=>{
+  Route.put('/changeavatar', 'UserController.updateProfilePic')
+})
+.prefix('api/v2/account')
 .middleware('auth')
