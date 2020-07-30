@@ -15,8 +15,8 @@ class UserController {
 		try {
 
             const rules = {
-                name: 'required|string|max:10|alpha',
-                username: 'required|string|max:10|unique:users,username',
+                name: 'required|string|max:25|alpha',
+                username: 'required|string|max:15|unique:users,username',
                 email: 'required|string|max:50|min:10|unique:users,email',
                 number : 'required|string|max:20|min:8',
                 password: 'string|required|min:8|max:20',
