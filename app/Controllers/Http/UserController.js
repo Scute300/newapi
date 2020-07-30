@@ -48,8 +48,8 @@ class UserController {
             console.log(4)
              try{
                 const user = await new User()
-                user.name = userData.name
                 user.username = userData.username.replace(/ /g, "_")
+                user.name = userData.name
                 user.email = userData.email
                 user.number= userData.number
                 user.password = userData.password
