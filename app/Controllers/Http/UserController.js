@@ -4,8 +4,6 @@ const { validate } = use('Validator')
 const Mail = use('Mail')
 const PasswordReset = use('App/Models/PasswordReset')
 const randomString = require('random-string')
-const Mail = use('Mail')
-const Hash = use('Hash')
 
 
 class UserController {
