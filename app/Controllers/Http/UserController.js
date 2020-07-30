@@ -4,6 +4,7 @@ const { validate } = use('Validator')
 const Mail = use('Mail')
 const PasswordReset = use('App/Models/Resetpassword')
 const randomString = require('random-string')
+const Cloudinary = use('Cloudinary')
 
 
 class UserController {
@@ -198,6 +199,36 @@ class UserController {
             data: user
         })
 
+    }
+    async updateProfilePic({ request, auth, response }) {
+        try{
+            const user = auth.current.user
+            const userData = request.only(['avatar']);
+            
+            if(user.avatar !== 'https://res.cloudinary.com/scute/image/upload/v1566358443/recursos/default_hduxaa.png'){
+            
+            const image = user.avatarpublicid
+            await Cloudinary.v2.uploader.destroy(image)
+
+            }
+            const avatar = userData['avatar'];
+            const resultado = await Cloudinary.v2.uploader.upload(avatar);
+
+            user.avatar = resultado.secure_url
+            user.avatarpublicid = resultado.public_id
+            await user.save()
+
+            return response.json({
+                status: 'success',
+                data: user
+            })
+    }catch(error){
+        console.log(error)
+        return response.status(404).json({
+            status: 'wrong',
+            message: 'No puedes actualizar por ahora'
+        })
+    }
     }
     
 }

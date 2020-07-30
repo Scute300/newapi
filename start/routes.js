@@ -24,7 +24,7 @@ Route.get('/', () => {
 
 Route.group(() => {
   Route.post('/signup', 'UserController.signup')
-  Route.post('/login', 'UserController.login')
+  Route.post('/login', 'UserController.login') 
 })
 .prefix('api/v1')
 
@@ -32,6 +32,10 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/me', 'UserController.me')
+  Route.group(()=>{
+    Route.put('/changeavatar', 'UserController.updateProfilePic')
+  })
+  .prefix('account')
 })
 .prefix('api/v2')
 .middleware('auth')

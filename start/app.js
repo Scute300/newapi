@@ -19,7 +19,8 @@ const providers = [
   '@adonisjs/validator/providers/ValidatorProvider',  
   '@adonisjs/auth/providers/AuthProvider',
   '@adonisjs/mail/providers/MailProvider',
-  '@adonisjs/framework/providers/ViewProvider'
+  '@adonisjs/framework/providers/ViewProvider',
+  'adonis-4-cloudinary/provider/Cloudinary'
 ]
 
 /*
@@ -47,7 +48,9 @@ const aceProviders = [
 |   { Route: 'Adonis/Src/Route' }
 |
 */
-const aliases = {}
+const aliases = {
+  Cloudinary: 'Adonis/Addons/AdonisCloudinary'
+}
 
 /*
 |--------------------------------------------------------------------------
