@@ -5,7 +5,6 @@ const Env = use('Env')
 
 /** @type {import('@adonisjs/ignitor/src/Helpers')} */
 const Helpers = use('Helpers')
-Env.getOrFail('APP_SECRET')
 module.exports = {
   /*
   |--------------------------------------------------------------------------
@@ -16,7 +15,7 @@ module.exports = {
   | interacting with SQL databases.
   |
   */
-  connection: Env.get('DB_CONNECTION', 'mariadb'),
+  connection: Env.getOrFail('DB_CONNECTION', 'mariadb'),
 
   /*
   |--------------------------------------------------------------------------
