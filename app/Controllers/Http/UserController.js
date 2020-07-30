@@ -2,7 +2,7 @@
 const User = use('App/Models/User')
 const { validate } = use('Validator')
 const Mail = use('Mail')
-const PasswordReset = use('App/Models/PasswordReset')
+const PasswordReset = use('App/Models/Resetpassword')
 const randomString = require('random-string')
 
 
