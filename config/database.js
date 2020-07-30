@@ -15,7 +15,7 @@ module.exports = {
   | interacting with SQL databases.
   |
   */
-  connection: Env.getOrFail('DB_CONNECTION', 'mariadb'),
+  connection: Env.get('DB_CONNECTION', 'mariadb'),
 
   /*
   |--------------------------------------------------------------------------
