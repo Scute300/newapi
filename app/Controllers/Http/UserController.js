@@ -99,7 +99,7 @@ class UserController {
               }
 
 
-            const validation = await validate(userData, rules, messages)
+            const validation = await validate(data, rules, messages)
 
             if(validation.fails()){
 
@@ -113,8 +113,7 @@ class UserController {
             } else {
 // validate the user credentials and generate a JWT token
                 const token = await auth.attempt(
-                    request.input('email'),
-                    request.input('password')
+                    data.email, data.password
                 )
 
                 return response.json({
