@@ -15,7 +15,7 @@ class UserController {
 		try {
             console.log(userData)
             const rules = {
-                name: 'required|string|max:25|alpha',
+                name: 'required|string|max:25',
                 username: 'required|string|max:15|unique:users,username',
                 email: 'required|string|max:50|min:10|unique:users,email',
                 number : 'required|string|max:20|min:8',
@@ -49,7 +49,7 @@ class UserController {
                 // save user to database
             console.log(4)
                 const user = await new User()
-                user.name = userData.name
+                user.name = userData.name.username.replace(/ /g, "_")
                 user.username = userData.username.replace(/ /g, "_")
                 user.email = userData.email
                 user.number= userData.number
