@@ -11,9 +11,10 @@ class UserController {
     async signup ({ request, auth, response }) {
 		// get user data from signup form
 		const userData = request.only(['name', 'username', 'email','number','password']);
+        console.log(1)
 		//console.log(userData);
 		try {
-
+            console.log(2)
             const rules = {
                 name: 'required|string|max:25|alpha',
                 username: 'required|string|max:15|unique:users,username',
@@ -39,6 +40,7 @@ class UserController {
 
             const validation = await validate(userData, rules, messages)
             if (validation.fails()){
+                console.log(3)
                 const message = validation.messages()
                 let error = message[0]
                 return response.status(400).json({
@@ -47,6 +49,7 @@ class UserController {
                 })
             } else {
                 // save user to database
+            console.log(4)
                 const user = await new User()
                 user.name = userData.name
                 user.username = userData.username.replace(/ /g, "_")
