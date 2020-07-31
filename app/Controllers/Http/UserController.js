@@ -268,7 +268,7 @@ class UserController {
             consolelog(error)
             return response.status(400).json({
                 status: 'wrong',
-                message: error.message
+                message: 'No se puede obtener la ubicacion'
             })
         }
     }
