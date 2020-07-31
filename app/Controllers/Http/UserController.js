@@ -353,78 +353,38 @@ class UserController {
 
     }
 
-    async advacemodify({auth, request, response}){
-        console.log(1)
-            const data = request.only(['email', 'password'])
-            if(data.email == '' && data.password !== ''){
-                const rules = {
-                    password: 'min:8|string|max:25|required',
-                }
+    async modifyemail({auth, request, response}){
+        const data = request.only(['email'])
+
+        const rules = {
+            email: 'required|string|max:60|min:15|unique:users,email',
+        }
+
+        const messages = {
+            required: 'Porfavor, llena los campos correctamente',
+            'min':'Correo no puede ser inferior a 50 caracteres',
+            'max' : 'Correo no puede ser mayor a 60 caracteres',
+        }
+        const validation = await validate(data, rules, messages)
         
-                const messages = {
-                    required: 'Es necesario que llenes el campo para continuar',
-                    string : 'llena el campo en forma correcta',
-                    max: 'Contraseña no debe exceder 25 Caracteres',
-                    min: 'Contraseña debe tener al menos 8 Caracteres'
-                }
+        if(validation.fails()){
 
-                const validation = await validate(data.password, rules, messages)
-                if(validation.fails()){
+            const message = validation.messages()
+            let error = message[0]
+            return response.status(400).json({
+                status: 'wrong',
+                message: error.message
+            })
+        } else {
+            const user = auth.current.user
+            user.email = data.email
+            await user.save()
+            return response.status.json({
+                status: 'wrong',
+                data: true
+            })
+        }
 
-                    const message = validation.messages()
-                    let error = message[0]
-                    return response.status(400).json({
-                        status: 'wrong',
-                        message: error.message
-                    })
-                } else {
-                const user = auth.current.user
-                user.password = data.password
-                await user.save()
-                return response.json({
-                    status : 'sure',
-                    data: true
-                })
-                }
-            } else if(data.email !== '' && data.password == ''){
-                const rules = {
-                    email: 'min:15|string|max:60|required|unique:users,email',
-                }
-        
-                const messages = {
-                    'email.unique': 'Este correo ya está registrado',
-                    required: 'Es necesario que llenes el campo para continuar',
-                    string : 'llena el campo en forma correcta',
-                    max: 'Correo no debe exceder 60 Caracteres',
-                    min: 'Correo debe tener al menos 8 Caracteres'
-                }
-
-                const validation = await validate(data.email, rules, messages)
-                if(validation.fails()){
-
-                    const message = validation.messages()
-                    let error = message[0]
-                    return response.status(400).json({
-                        status: 'wrong',
-                        message: error.message
-                    })
-                } else {
-                const user = auth.current.user
-                user.email = data.email
-                await user.save()
-                return response.json({
-                    status : 'sure',
-                    data: true
-                })
-                }
-
-            } else if(data.password == '' && data.email == ''){
-
-                return response.status(400).json({
-                    status: 'wrong',
-                    message: 'Rellena algún campo para continuar'
-                })
-            }
     }
     
 }
