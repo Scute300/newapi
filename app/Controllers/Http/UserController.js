@@ -17,9 +17,9 @@ class UserController {
             const rules = {
                 name: 'required|min:8|string|max:25',
                 username: 'required|string|max:15|unique:users,username',
-                email: 'required|string|min:10|max:50|unique:users,email',
+                email: 'required|string|min:15|max:60|unique:users,email',
                 number : 'required|string|min:8|max:12',
-                password: 'required|string|min:8|max:20'
+                password: 'required|string|min:8|max:25'
             }
 
             const messages = {
@@ -30,12 +30,12 @@ class UserController {
                 'username.max' : 'Username debe ser menor a 15 caracteres',
                 'username.unique' : 'Este nombre de usuario ya está ocupado',
                 'email.unique': 'Este correo ya está registrado',
-                'email.min':'Correo no puede ser inferior a 10 caracteres',
-                'email.max' : 'Correo no puede ser mayor a 50 caracteres',
+                'email.min':'Correo no puede ser inferior a 15 caracteres',
+                'email.max' : 'Correo no puede ser mayor a 60 caracteres',
                 'number.max': 'Excedes el numero de caracteres en numero',
                 'number.min': 'Escribe tu numero correctamente',
                 'password.min' : 'Contraseña debe tener al menos 8 caracteres',
-                'password.max' : 'Contraseña no puede ser mayor a 20 caracteres'
+                'password.max' : 'Contraseña no puede ser mayor a 25 caracteres'
               }
               
             const validation = await validate(userData, rules, messages)
@@ -79,16 +79,16 @@ class UserController {
             const data = request.only(['email','password'])
 
             const rules = {
-                email: 'required|string|max:60|min:10',
-                password: 'string|required|min:8|max:50',
+                email: 'required|string|max:60|min:15',
+                password: 'string|required|min:8|max:25',
             }
 
             const messages = {
                 required: 'Porfavor, llena los campos correctamente',
-                'email.min':'Correo no puede ser inferior a 10 caracteres',
+                'email.min':'Correo no puede ser inferior a 50 caracteres',
                 'email.max' : 'Correo no puede ser mayor a 60 caracteres',
                 'password.min' : 'Contraseña debe tener al menos 8 caracteres',
-                'password.max' : 'Contraseña no puede ser mayor a 20 caracteres'
+                'password.max' : 'Contraseña no puede ser mayor a 25 caracteres'
               }
 
 
@@ -351,6 +351,78 @@ class UserController {
             }
         }
 
+    }
+
+    async advacemodify({auth, request, response}){
+        const data = request.only(['email', 'password'])
+        if(data.email == null && data.password !== null){
+            const rules = {
+                password: 'min:8|string|max:25|required',
+            }
+    
+            const messages = {
+                required: 'Es necesario que llenes el campo para continuar',
+                string : 'llena el campo en forma correcta',
+                max: 'Contraseña no debe exceder 25 Caracteres',
+                min: 'Contraseña debe tener al menos 8 Caracteres'
+            }
+
+            const validation = await validate(data, rules, messages)
+            if(validation.fails()){
+
+                const message = validation.messages()
+                let error = message[0]
+                return response.status(400).json({
+                    status: 'wrong',
+                    message: error.message
+                })
+            } else {
+            const user = auth.current.user
+            user.password = data.password
+            await user.save()
+            return response.json({
+                status : 'sure',
+                data: true
+            })
+            }
+        } else if(data.email !== null && data.password == null){
+            const rules = {
+                email: 'min:15|string|max:60|required|unique:users,email',
+            }
+    
+            const messages = {
+                'email.unique': 'Este correo ya está registrado',
+                required: 'Es necesario que llenes el campo para continuar',
+                string : 'llena el campo en forma correcta',
+                max: 'Correo no debe exceder 60 Caracteres',
+                min: 'Correo debe tener al menos 8 Caracteres'
+            }
+
+            const validation = await validate(data, rules, messages)
+            if(validation.fails()){
+
+                const message = validation.messages()
+                let error = message[0]
+                return response.status(400).json({
+                    status: 'wrong',
+                    message: error.message
+                })
+            } else {
+            const user = auth.current.user
+            user.password = data.password
+            await user.save()
+            return response.json({
+                status : 'sure',
+                data: true
+            })
+            }
+
+        } else if(data. password == null && data.email == null){
+            return response.status(400).json({
+                status: 'wrong',
+                message: 'Rellena algún campo para continuar'
+            })
+        }
     }
     
 }
