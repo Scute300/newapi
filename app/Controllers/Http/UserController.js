@@ -354,7 +354,7 @@ class UserController {
     }
 
     async advacemodify({auth, request, response}){
-        try{
+        console.log(1)
             const data = request.only(['email', 'password'])
             if(data.email == '' && data.password !== ''){
                 const rules = {
@@ -399,7 +399,7 @@ class UserController {
                     min: 'Correo debe tener al menos 8 Caracteres'
                 }
 
-                const validation = await validate(data, rules, messages)
+                const validation = await validate(data.email, rules, messages)
                 if(validation.fails()){
 
                     const message = validation.messages()
@@ -418,14 +418,8 @@ class UserController {
                 })
                 }
 
-            } else if(data. password == '' && data.email == ''){
+            } else if(data.password == '' && data.email == ''){
 
-                return response.status(400).json({
-                    status: 'wrong',
-                    message: 'Rellena algún campo para continuar'
-                })
-            }}catch(error){
-                console.log(error)
                 return response.status(400).json({
                     status: 'wrong',
                     message: 'Rellena algún campo para continuar'
