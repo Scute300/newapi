@@ -364,6 +364,7 @@ class UserController {
             required: 'Porfavor, llena los campos correctamente',
             'min':'Correo no puede ser inferior a 50 caracteres',
             'max' : 'Correo no puede ser mayor a 60 caracteres',
+            unique: 'Este correo ya existe'
         }
         const validation = await validate(data, rules, messages)
         
@@ -379,8 +380,8 @@ class UserController {
             const user = auth.current.user
             user.email = data.email
             await user.save()
-            return response.status.json({
-                status: 'wrong',
+            return response.json({
+                status: 'sure',
                 data: true
             })
         }
