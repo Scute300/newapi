@@ -325,7 +325,6 @@ class UserController {
             string: 'Contraseña incorrecta',
             max: 'Contraseña incorrecta'
         }
-        console.log('1')
         const validation = await validate(data, rules, messages)
         
         if(validation.fails()){
@@ -337,14 +336,8 @@ class UserController {
                 message: error.message
             })
         } else {
-            try{
-                console.log('2')
-            const user = await User.query()
-                .where('id', auth.current.user.id)
-                .firstOrFail()
-            const iuser = user.toJSON()
-
-            const isSame = await Hash.verify(data.password, iuser.password)
+            const user = auth.current.user
+            const isSame = await Hash.verify(data.password, user.password)
             if(isSame) {
                 return response.json({
                     status: 'sure',
@@ -355,9 +348,6 @@ class UserController {
                     status: 'wrong',
                     data: 'Contraseña no coincide'
                 })
-            }
-            }catch(error){
-                console.log(error)
             }
         }
 
