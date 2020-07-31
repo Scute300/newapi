@@ -355,7 +355,7 @@ class UserController {
 
     async advacemodify({auth, request, response}){
         const data = request.only(['email', 'password'])
-        if(data.email == null && data.password !== null){
+        if(data.email == '' && data.password !== ''){
             const rules = {
                 password: 'min:8|string|max:25|required',
             }
@@ -385,7 +385,7 @@ class UserController {
                 data: true
             })
             }
-        } else if(data.email !== null && data.password == null){
+        } else if(data.email !== '' && data.password == ''){
             const rules = {
                 email: 'min:15|string|max:60|required|unique:users,email',
             }
@@ -417,11 +417,12 @@ class UserController {
             })
             }
 
-        } else if(data. password == null && data.email == null){
+        } else if(data. password == '' && data.email == ''){
+            try{
             return response.status(400).json({
                 status: 'wrong',
                 message: 'Rellena algún campo para continuar'
-            })
+            })} catch(error){console.log(error)}
         }
     }
     
