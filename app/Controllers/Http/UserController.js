@@ -367,7 +367,7 @@ class UserController {
                 min: 'Contraseña debe tener al menos 8 Caracteres'
             }
 
-            const validation = await validate(data, rules, messages)
+            const validation = await validate(data.password, rules, messages)
             if(validation.fails()){
 
                 const message = validation.messages()
@@ -409,7 +409,7 @@ class UserController {
                 })
             } else {
             const user = auth.current.user
-            user.password = data.password
+            user.email = data.email
             await user.save()
             return response.json({
                 status : 'sure',
