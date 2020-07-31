@@ -342,7 +342,7 @@ class UserController {
                 .firstOrFail()
             const iuser = user.toJSON()
 
-            const isSame = await Hash.verify(data.password, user.password)
+            const isSame = await Hash.verify(data.password, iuser.password)
             if(isSame) {
                 return response.json({
                     status: 'sure',
