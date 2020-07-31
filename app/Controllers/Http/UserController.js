@@ -233,7 +233,7 @@ class UserController {
 
     async ubicacion({auth,request,response}){
         try{
-            const location = request.only(['location'])
+            const data = request.only(['location'])
 
             const rules = {
                 location: 'required|string|max:80',
@@ -244,7 +244,7 @@ class UserController {
                 max: 'El numero esperado se excede'
             }
 
-            const validation = await validate(location, rules, messages)
+            const validation = await validate(data, rules, messages)
             if(validation.fails()){
 
                 const message = validation.messages()
@@ -255,8 +255,8 @@ class UserController {
                     message: error.message
                 })
             } else {
-                const me = auth.current.user
-                const user = await User.findBy('id', me.id)
+
+                const user = auth.current.user
                 user.location = data.location
                 await user.save()
                 return response.json({
