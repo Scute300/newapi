@@ -14,7 +14,7 @@ class UserController {
 		const userData = request.only(['name', 'username', 'email','number','password']);
 		//console.log(userData);
             const rules = {
-                name: 'required|string|max:25',
+                name: 'required|min:8|string|max:25',
                 username: 'required|string|max:15|unique:users,username',
                 email: 'required|string|min:10|max:50|unique:users,email',
                 number : 'required|string|min:8|max:12',
@@ -24,6 +24,7 @@ class UserController {
             const messages = {
                 required: 'Es necesario llenar todos los campos',
                 'name.alpha':'Nombre no puede contener simbolos',
+                'name.min': 'nombre no puede ser menor a 8 caracteres',
                 'name.max': 'Nombre debe ser menor a 25 caracteres',
                 'username.max' : 'Username debe ser menor a 15 caracteres',
                 'username.unique' : 'Este nombre de usuario ya está ocupado',
@@ -271,6 +272,47 @@ class UserController {
                 message: 'No se puede obtener la ubicacion'
             })
         }
+    }
+    async editprofile({auth, request,response}){
+        const data = request.only(['name', 'cumpleaños', 'bio'])
+        const rules = {
+            name: 'min:8|string|max:25|unsigned',
+            cumpleaños: 'min:8|string|max:8',
+            bio: 'string|max:100'
+        }
+
+        const messages = {
+        'name.min': 'Nombre debe tener al menos 8 caracteres',
+        'name.max':'Nombre no debe exceder 25 caracteres',
+        'name.unsigned': 'Nombre no puede contener simbolos',
+        'cumpleaños.min' : 'Llena tu fecha de nacimiento correctamente',
+        'cumpleaños.max' : 'Llena tu fecha de nacimiento correctamente',
+        'bio.max' : 'Biografia no debe exceder 100 caracteres'
+        }
+
+        const validation = await validate(data, rules, messages)
+        if(validation.fails()){
+
+            const message = validation.messages()
+            let error = message[0]
+
+            return response.status(400).json({
+                status: 'wrong',
+                message: error.message
+            })
+        } else {
+            const user = auth.current.user
+            user.name = data.name
+            user.cumpleaños = data.cumpleaños
+            user.bio = data.bio
+            await user.save()
+            
+            return response.json({
+                status: 'sure',
+                data:user
+            })
+        } 
+
     }
     
 }
