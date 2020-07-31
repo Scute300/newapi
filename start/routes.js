@@ -38,6 +38,7 @@ Route.group(() => {
 
 Route.group(()=>{
   Route.put('/changeavatar', 'UserController.updateProfilePic')
+  Route.put('/changelocation', 'UserController.ubicacion')
 })
 .prefix('api/v2/account')
 .middleware('auth')

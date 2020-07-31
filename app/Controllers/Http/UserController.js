@@ -222,14 +222,14 @@ class UserController {
                 status: 'success',
                 data: user
             })
-    }catch(error){
-        console.log(error)
-        return response.status(404).json({
-            status: 'wrong',
-            message: 'No puedes actualizar por ahora'
-        })
+        }catch(error){
+            console.log(error)
+            return response.status(404).json({
+                status: 'wrong',
+                message: 'No puedes actualizar por ahora'
+            })
+        }
     }
-}
 
     async ubicacion({auth,request,response}){
         const location = request.only(['location'])
