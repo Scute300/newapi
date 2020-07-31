@@ -325,9 +325,9 @@ class UserController {
             string: 'Contraseña incorrecta',
             max: 'Contraseña incorrecta'
         }
-
+        console.log('1')
         const validation = await validate(data, rules, messages)
-
+        
         if(validation.fails()){
 
             const message = validation.messages()
@@ -337,6 +337,8 @@ class UserController {
                 message: error.message
             })
         } else {
+            try{
+                console.log('2')
             const user = await User.query()
                 .where('id', auth.current.user.id)
                 .firstOrFail()
@@ -353,6 +355,9 @@ class UserController {
                     status: 'wrong',
                     data: 'Contraseña no coincide'
                 })
+            }
+            }catch(error){
+                console.log(error)
             }
         }
 
