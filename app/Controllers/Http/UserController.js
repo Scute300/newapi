@@ -326,6 +326,8 @@ class UserController {
             max: 'Contraseña incorrecta'
         }
 
+        const validation = await validate(data, rules, messages)
+        
         if(validation.fails()){
 
             const message = validation.messages()
