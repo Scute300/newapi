@@ -387,6 +387,40 @@ class UserController {
         }
 
     }
+
+    async modifypassword({auth, request, response}){
+        const data = request.only(['password'])
+
+        const rules = {
+            password: 'required|string|max:25|min:8',
+        }
+
+        const messages = {
+            required: 'Porfavor, llena los campos correctamente',
+            'min':'Contraseña no puede ser inferior a 8 caracteres',
+            'max' : 'Contraseña no puede ser mayor a 25 caracteres'
+        }
+        const validation = await validate(data, rules, messages)
+        
+        if(validation.fails()){
+
+            const message = validation.messages()
+            let error = message[0]
+            return response.status(400).json({
+                status: 'wrong',
+                message: error.message
+            })
+        } else {
+            const user = auth.current.user
+            user.password = data.password
+            await user.save()
+            return response.json({
+                status: 'sure',
+                data: true
+            })
+        }
+
+    }
     
 }
 

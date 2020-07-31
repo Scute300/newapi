@@ -42,6 +42,7 @@ Route.group(()=>{
   Route.put('/updateprofile', 'UserController.editprofile')
   Route.post('/verify', 'UserController.verifypassword')
   Route.put('/modifyemail', 'UserController.modifyemail')
+  Route.put('/modifypassword', 'UserController.modifypassword')
 })
 .prefix('api/v2/account')
 .middleware('auth')
