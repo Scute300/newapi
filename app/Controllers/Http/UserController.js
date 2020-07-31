@@ -229,6 +229,40 @@ class UserController {
             message: 'No puedes actualizar por ahora'
         })
     }
+}
+
+    async ubicacion({auth,request,response}){
+        const location = request.only(['location'])
+
+        const rules = {
+            location: 'required|string|max:80',
+        }
+        const messages ={
+            required: 'Necesitar poner los datos correctos',
+            string: 'Aqui no puedes poner numeros u otros datos',
+            max: 'El numero esperado se excede'
+        }
+
+        const validation = await validate(location, rules, messages)
+        if(validation.fails()){
+
+            const message = validation.messages()
+            let error = message[0]
+
+            return response.status(400).json({
+                status: 'wrong',
+                message: error.message
+            })
+        } else {
+            const me = auth.current.user
+            const user = await User.findBy('id', me.id)
+            user.location = data.location
+            await user.save()
+            return response.json({
+                response : 'sure',
+                data : user
+            })
+        }
     }
     
 }

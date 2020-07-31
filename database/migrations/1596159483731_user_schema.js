@@ -12,6 +12,7 @@ class UserSchema extends Schema {
       table.string('avatar', 300).notNullable().defaultTo('https://res.cloudinary.com/scute/image/upload/v1595981235/recursos/30-307416_profile-icon-png-image-free-download-searchpng-employee_ogifkm.png')    
       table.string('avatarpublicid').notNullable()
       table.string('number', 15).notNullable()
+      table.text('location', 100)
       table.text('bio', 100).nullable()
       table.date('cumpleaños',8).nullable()
       table.string('email', 80).notNullable().unique()
