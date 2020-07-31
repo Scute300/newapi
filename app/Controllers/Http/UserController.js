@@ -337,7 +337,11 @@ class UserController {
                 message: error.message
             })
         } else {
-            const user = await User.findBy('id', auth.current.user.id)
+            const user = await User.query()
+                .where('id', auth.current.user.id)
+                .firstOrFail()
+            const iuser = user.toJSON()
+
             const isSame = await Hash.verify(data.password, user.password)
             if(isSame) {
                 return response.json({
