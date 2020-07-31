@@ -315,7 +315,7 @@ class UserController {
 
     }
     async verifypassword({auth, request, response}){
-        const data = request.only([password])
+        const data = request.only(['password'])
         const rules = {
             password: 'min:8|string|max:20'
         }
@@ -327,7 +327,7 @@ class UserController {
         }
 
         const validation = await validate(data, rules, messages)
-        
+
         if(validation.fails()){
 
             const message = validation.messages()
@@ -345,7 +345,7 @@ class UserController {
                     data: true
                 })
             } else {
-                return response.json({
+                return response.sratus(400).json({
                     status: 'wrong',
                     data: 'Contraseña no coincide'
                 })
