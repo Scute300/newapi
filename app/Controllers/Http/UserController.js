@@ -276,7 +276,7 @@ class UserController {
     async editprofile({auth, request,response}){
         const data = request.only(['name', 'cumpleaños', 'bio'])
         const rules = {
-            name: 'min:8|string|max:25|unsigned',
+            name: 'min:8|string|max:25|alpha',
             cumpleaños: 'min:8|string|max:8',
             bio: 'string|max:100'
         }
@@ -284,7 +284,7 @@ class UserController {
         const messages = {
         'name.min': 'Nombre debe tener al menos 8 caracteres',
         'name.max':'Nombre no debe exceder 25 caracteres',
-        'name.unsigned': 'Nombre no puede contener simbolos',
+        'name.alpha': 'Nombre no puede contener simbolos',
         'cumpleaños.min' : 'Llena tu fecha de nacimiento correctamente',
         'cumpleaños.max' : 'Llena tu fecha de nacimiento correctamente',
         'bio.max' : 'Biografia no debe exceder 100 caracteres'
