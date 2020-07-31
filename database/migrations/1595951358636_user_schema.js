@@ -14,7 +14,7 @@ class UserSchema extends Schema {
       table.string('number', 15).notNullable()
       table.text('location', 100)
       table.text('bio', 100).nullable()
-      table.date('cumpleaños',8).nullable()
+      table.string('cumpleaños',8).nullable()
       table.string('email', 80).notNullable().unique()
       table.string('password', 120).notNullable()
       table.timestamps()

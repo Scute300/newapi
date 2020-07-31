@@ -5,6 +5,7 @@ const Mail = use('Mail')
 const PasswordReset = use('App/Models/Resetpassword')
 const randomString = require('random-string')
 const Cloudinary = use('Cloudinary')
+const Hash = use('Hash')
 
 
 class UserController {
@@ -295,7 +296,6 @@ class UserController {
 
             const message = validation.messages()
             let error = message[0]
-
             return response.status(400).json({
                 status: 'wrong',
                 message: error.message
@@ -312,6 +312,43 @@ class UserController {
                 data:user
             })
         } 
+
+    }
+    async verifypassword({auth, request, response}){
+        const data = request.only([password])
+        const rules = {
+            password: 'min:8|string|max:20'
+        }
+
+        const messages = {
+            min: 'Contraseña incorrecta',
+            string: 'Contraseña incorrecta',
+            max: 'Contraseña incorrecta'
+        }
+
+        if(validation.fails()){
+
+            const message = validation.messages()
+            let error = message[0]
+            return response.status(400).json({
+                status: 'wrong',
+                message: error.message
+            })
+        } else {
+            const user = await User.findBy('id', auth.current.user.id)
+            const isSame = await Hash.verify(data.password, user.password)
+            if(isSame) {
+                return response.json({
+                    status: 'sure',
+                    data: true
+                })
+            } else {
+                return response.json({
+                    status: 'wrong',
+                    data: 'Contraseña no coincide'
+                })
+            }
+        }
 
     }
     
