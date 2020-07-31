@@ -351,7 +351,7 @@ class UserController {
                     data: true
                 })
             } else {
-                return response.sratus(400).json({
+                return response.status(400).json({
                     status: 'wrong',
                     data: 'Contraseña no coincide'
                 })
