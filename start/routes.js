@@ -47,8 +47,4 @@ Route.group(()=>{
 .prefix('api/v2/account')
 .middleware('auth')
 
-Route.group(()=>{
-  Route.post('/newpost', 'PostController.newpost')
-})
-.prefix('api/v2/post')
-.middleware('auth')
+Route.post('/newpost', 'PostController.post')
