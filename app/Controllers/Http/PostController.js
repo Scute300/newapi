@@ -5,11 +5,13 @@ const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary')
 
-class PostController {
+class PostController { 
     async post ({auth, request, response}){
-        const data = request.only(['text', 'name', 'images', 'location' , 'type', 'category', 'price', 'status'])
-
+        const data = request.only(['text', 'name', 'images', 'location' , 
+                                    'type', 'category', 'price', 'status'])
+                                    console.log(1);
         if(data.type == 'listado'){
+            console.log(1);
         const rules = {
             name: 'required|string|min:20|max:150|',
             type: 'required|string|min:7|max:10',
@@ -32,7 +34,7 @@ class PostController {
           }
 
           const validation = await validate(data, rules, messages)
-
+          console.log(1);
           if(validation.fails()){
 
             const message = validation.messages()
