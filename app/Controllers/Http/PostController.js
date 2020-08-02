@@ -13,7 +13,7 @@ class PostController {
             text: 'required|string|max:1500|min:300',
             name: 'required|string|min:20|max:150',
             images: 'required',
-            location : 'required|max:90|min:20|string',
+            location : 'required|max:90|string',
             type: 'required|string|min:7|max:10',
             category: 'required|max:150',
             price: 'required|max:100',
