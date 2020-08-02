@@ -28,7 +28,7 @@ class PostController {
             'images.required' : 'Todo post necesita al menos una imagen',
             'text.min': 'El post debe tener al menos 300 catacteres',
             'text.max':'El post no debe exceder los 1500 caracteres',
-            'price' : 'El precio no debe exceder los 100 caracteres',
+            'price.min' : 'El precio no debe exceder los 100 caracteres',
           }
 
           const validation = await validate(data, rules, messages)
