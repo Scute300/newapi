@@ -11,7 +11,7 @@ class PostController {
         const data = request.only(['text', 'name', 'images', 'location' , 'type', 'category', 'price', 'status'])
         
         const rules = {
-            text: 'required|string|max:1500|min:300',
+            text: 'required|string|min:300',
             name: 'required|string|min:20|max:150',
             images: 'required|string',
             location : 'required|max:90|min:20|string',
@@ -24,7 +24,6 @@ class PostController {
         const messages = {
             required: 'Es necesario llenar todos los campos',
             'text.min': 'El post debe tener al menos 300 catacteres',
-            'text.max':'El post no debe exceder los 1500 caracteres',
             'name.min': 'Nombre debe tener al menos 20 caracteres',
             'name.max': 'Nombre no puede tener más de 150 caracters',
             'price.min' : 'El precio no debe exceder los 100 caracteres',
