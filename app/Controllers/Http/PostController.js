@@ -8,12 +8,11 @@ const Cloudinary = use('Cloudinary')
 class PostController { 
     async post ({auth, request, response}){
         const data = request.only(['text', 'name', 'images', 'location' , 'type', 'category', 'price', 'status'])
-                                    console.log(data)
         if(data.type == 'listado'){
         const rules = {
             text: 'required|string|max:1500|min:300',
             name: 'required|string|min:20|max:150',
-            images: 'required|string',
+            images: 'required',
             location : 'required|max:90|min:20|string',
             type: 'required|string|min:7|max:10',
             category: 'required|max:150',
@@ -23,6 +22,7 @@ class PostController {
 
         const messages = {
             required: 'Es necesario llenar todos los campos',
+            'images.required' : 'Necesitas subir al menos una imagen',
             'text.min': 'El post debe tener al menos 300 catacteres',
             'text.max':'El post no debe exceder los 1500 caracteres',
             'name.min': 'Nombre debe tener al menos 20 caracteres',
