@@ -60,8 +60,8 @@ class PostController {
     
                 const postimage = await new Postimage()
                 postimage.post_id = posto.id
-                postimage.image = resultado.secure_url
-                postimage.secure_url = resultado.public_id
+                postimage.url = resultado.secure_url
+                postimage.publicid = resultado.public_id
                 await postimage.save()
               }
 
