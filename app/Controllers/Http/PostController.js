@@ -6,7 +6,7 @@ const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary')
 
 class PostController { 
-    async post ({auth, request, response}){
+    async mewpost ({auth, request, response}){
         try{
         const data = request.only(['text', 'name', 'images', 'location' , 'type', 'category', 'price', 'status'])
         
