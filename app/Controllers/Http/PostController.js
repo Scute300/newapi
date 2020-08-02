@@ -7,7 +7,7 @@ const Cloudinary = use('Cloudinary')
 
 class PostController {
     async post ({auth, request, response}){
-        const data = request.only(['type', 'text', 'images', 'location' ,'data', 'type', 'category', 'price', 'status'])
+        const data = request.only(['text', 'name', 'images', 'location' , 'type', 'category', 'price', 'status'])
 
         if(data.type == 'listado'){
         const rules = {
@@ -31,7 +31,7 @@ class PostController {
             'price' : 'El precio no debe exceder los 100 caracteres',
           }
 
-          const validation = await validate(userData, rules, messages)
+          const validation = await validate(data, rules, messages)
 
           if(validation.fails()){
 
