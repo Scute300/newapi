@@ -1,6 +1,6 @@
 'use strict'
 
-const { RouteGroup } = require('@adonisjs/framework/src/Route/Manager')
+const { RouteGroup, route } = require('@adonisjs/framework/src/Route/Manager')
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +45,10 @@ Route.group(()=>{
   Route.put('/modifypassword', 'UserController.modifypassword')
 })
 .prefix('api/v2/account')
+.middleware('auth')
+
+Route.group(()=>{
+  Route.post('/newpost', 'PostController.')
+})
+.prefix('api/v2/post')
 .middleware('auth')

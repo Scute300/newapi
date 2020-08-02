@@ -28,6 +28,9 @@ class User extends Model {
   monedero () {
     return this.hasOne('App/Models/Monedero')
   }
+  posts () {
+    return this.hasMany('App/Models/Post')
+  }
 }
 
 module.exports = User
