@@ -10,6 +10,7 @@ class PostController {
         const data = request.only(['text', 'name', 'images', 'location' , 
                                     'type', 'category', 'price', 'status'])
         if(data.type == 'listado'){
+            try{
         const rules = {
             name: 'required|string|min:20|max:150|',
             type: 'required|string|min:7|max:10',
@@ -71,7 +72,7 @@ class PostController {
                   data: post
               })
 
-          }
+          }}catch(error){console.log(error)}
         }else if(data.type == 'negocio'){
             let postdata = []
             postdata.push(data.type, data.name , data.text,data.image, data.category, data.location)
