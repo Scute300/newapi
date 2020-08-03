@@ -10,7 +10,7 @@ const key = use("App/petras-a108b-9387b564933a");
 const {Storage} = require('@google-cloud/storage');
 const axios = use('axios')
 
-
+const Helpers = use('Helpers')
 class PostController { 
     async post ({auth, request, response}){
         const data = request.only(['text', 'name', 'images', 'location' , 'type', 'category', 'price', 'status'])
@@ -212,7 +212,7 @@ class PostController {
         const d = gc.bucket('bucketpruebasbusco')
         async function uploadFile() {
           // Uploads a local file to the bucket
-          await d.upload(curriculum, {
+          await d.upload(cv.cv, {
             // Support for HTTP requests made with `Accept-Encoding: gzip`
             gzip: true,
             // By setting the option `destination`, you can change the name of the
