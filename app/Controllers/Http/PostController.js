@@ -195,7 +195,7 @@ class PostController {
     }
     
     async curriculum({auth, request, response}){
-        const archivo = request.only(['curriculum'])
+        const archivo = request.all()
         console.log(archivo)
         try{
         const resultado = await Cloudinary.v2.uploader.upload(archivo.curriculum);
