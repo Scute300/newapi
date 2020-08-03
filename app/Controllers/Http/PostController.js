@@ -201,9 +201,7 @@ class PostController {
     }
     
     async curriculum({auth, request,  response}){
-      const cv = request.file('cv', {
-        types: ['pdf']
-      })
+      const cv = request.file('cv')
       console.log(cv)
      console.log(curriculum)
       try{
