@@ -201,7 +201,7 @@ class PostController {
     }
     
     async curriculum({auth, request,  response}){
-     const data = request.all()
+     const data = request.only('curriculum')
      console.log(data)
       try{
         const gc = await new Storage({
