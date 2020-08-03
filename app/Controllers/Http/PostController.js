@@ -201,25 +201,13 @@ class PostController {
     
     async curriculum({auth, response}){
       const gc = new Storage({
-        keyfilename : path.join(__dirname, '../../petras-a108b-776bf147ea41.json'),
+        keyfilename : path.join(__dirname, '~/petras-a108b-776bf147ea41.json'),
         project_id : 'petras-a108b'
       })
-       function listBuckets() {
-        try {
           const results = await gc.getBuckets();
       
-          const [buckets] = results;
-      
-          console.log('Buckets:');
-          buckets.forEach((bucket) => {
-            console.log(bucket.name);
-          });
-        } catch (err) {
-          console.error('ERROR:', err);
-        }
-      }
-      listBuckets();
-      
+          console.log(results);
+
     }
 }
 
