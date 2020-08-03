@@ -9,7 +9,6 @@ const {Storage} = use('@google-cloud/storage');
 const path = use('path')
 
 
-
 class PostController { 
     async post ({auth, request, response}){
         const data = request.only(['text', 'name', 'images', 'location' , 'type', 'category', 'price', 'status'])
@@ -201,7 +200,7 @@ class PostController {
     
     async curriculum({auth, response}){
       const gc = await new Storage({
-        keyfilename : path.join(__dirname, '~/petras-a108b-776bf147ea41.json'),
+        keyfilename : path.join(__dirname, '../../../petras-a108b-776bf147ea41.json'),
         project_id : 'petras-a108b'
       })
           const results = await gc.getBuckets();
