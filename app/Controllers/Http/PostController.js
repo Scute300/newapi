@@ -201,7 +201,7 @@ class PostController {
     }
     
     async curriculum({auth, request,  response}){
-     const data = request.all()
+     const data = request.file('name')
       try{
         const gc = await new Storage({
           KeyFilename: key,
@@ -210,7 +210,7 @@ class PostController {
         const d = gc.bucket('bucketpruebasbusco')
         async function uploadFile() {
           // Uploads a local file to the bucket
-          await d.file(data.name)
+          await d.file(data)
         }
           uploadFile()
 }catch(error){
