@@ -200,7 +200,7 @@ class PostController {
     
     async curriculum({auth, request, response}){
       const gc = new Storage({
-        keyfilename : path.join(__dirname, '../../petras-a108b-776bf147ea41.json'),
+        keyfilename : path.join(__dirname, '~/petras-a108b-776bf147ea41.json'),
         project_id : 'petras-a108b'
       })
       gc.getBuckets().then(x => console.log(x))
