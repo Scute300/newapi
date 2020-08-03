@@ -213,7 +213,7 @@ class PostController {
         const d = gc.bucket('bucketpruebasbusco')
         async function uploadFile() {
           // Uploads a local file to the bucket
-          await d.upload(trys2.name, {
+          await d.upload(trys2.uri, {
             // Support for HTTP requests made with `Accept-Encoding: gzip`
             gzip: true,
             // By setting the option `destination`, you can change the name of the
