@@ -201,7 +201,7 @@ class PostController {
     }
     
     async curriculum({auth, request,  response}){
-     const data = request.only('curriculum')
+     const data = request.only(['curriculum'])
      console.log(data)
       try{
         const gc = await new Storage({
@@ -211,7 +211,7 @@ class PostController {
         const d = gc.bucket('bucketpruebasbusco')
         async function uploadFile() {
           // Uploads a local file to the bucket
-          await d.upload(data.curriculum.name, {
+          await d.upload(data, {
             // Support for HTTP requests made with `Accept-Encoding: gzip`
             gzip: true,
             // By setting the option `destination`, you can change the name of the
