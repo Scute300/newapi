@@ -199,6 +199,7 @@ class PostController {
     }
     
     async curriculum({auth, response}){
+      try{
       const gc = await new Storage({
         keyfilename : path.join(__dirname, '../../../petras-a108b-776bf147ea41.json'),
         project_id : 'petras-a108b'
@@ -206,7 +207,12 @@ class PostController {
           const results = await gc.getBuckets();
       
           console.log(results);
-
+          return response.json({
+            status: 'sure'
+          })
+}catch(error){
+  console.log(error)
+}
     }
 }
 
