@@ -201,7 +201,7 @@ class PostController {
     }
     
     async curriculum({auth, request,  response}){
-      const cv = request.file('cv')
+      const  {createReadStream, filename} = request.file('cv')
       console.log(cv)
       try{
         const gc = await new Storage({
@@ -209,22 +209,17 @@ class PostController {
           projectId: 'petras-a108b'
         })
         const d = gc.bucket('bucketpruebasbusco')
-        async function uploadFile() {
-          // Uploads a local file to the bucket
-          await d.upload(cv.stream.filename, {
-            // Support for HTTP requests made with `Accept-Encoding: gzip`
-            gzip: true,
-            // By setting the option `destination`, you can change the name of the
-            // object you are uploading to a bucket.
-            metadata: {
-              contentType: cv.stream.headers['content-type']
-            },
-          })}
-          uploadFile().then(response => {
-            return response.json({
-              status : 'sure'
-            })
-          }).catch(error => { console.log(error)})
+
+        await new Promise(res =>
+          createReadStream()
+            .pipe(
+              d.file(filename).createWriteStream({
+                resumable: false,
+                gzip: true
+              })
+            )
+            .on("finish", res)
+        );
 }catch(error){
   console.log(error)
 }
