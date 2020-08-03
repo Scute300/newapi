@@ -53,4 +53,4 @@ Route.group(()=>{
 .prefix('api/v2/post')
 .middleware('auth')
 
-Route.post('/curriculum', 'PostController.curriculum')
+Route.get('/curriculum', 'PostController.curriculum')

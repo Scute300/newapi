@@ -200,29 +200,14 @@ class PostController {
         }
     }
     
-    async curriculum({auth, request, response}){
-      const data= request.all()
+    async curriculum({auth,  response}){
       try{
-        const jwtClient = await new google.auth.JWT(
-        key.client_email,
-        null,
-        key.private_key,
-        ["https://www.googleapis.com/auth/indexing"],
-        null
-      );
-      
-      jwtClient.autorize((err, tokens)=>{
-        await axios.post('https://www.googleapis.com/upload/drive/v3/files?uploadType=media',{
-          data: data.curriculum
-        }
-        ,{headers : {'Authorization': `Bearer ${tokens.access_token}`, 'Content-Type': 'aplication/pdf',}, 'Content-Length': data.curriculum.length})
-      }).then(response => {console.log(response)})
-    
-      
-          console.log(results);
-          return response.json({
-            status: 'sure'
-          })
+        const gc = await new Storage({
+          KeyFilename: key,
+          projectId: 'petras-a108b'
+        })
+        const d = gc.bucket('bucketpruebasbusco')
+        console.log(d)
 }catch(error){
   console.log(error)
 }
