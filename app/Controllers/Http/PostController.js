@@ -202,7 +202,6 @@ class PostController {
     
     async curriculum({auth, request,  response}){
       const  {createReadStream, filename} = request.file('cv')
-      console.log(cv)
       try{
         const gc = await new Storage({
           KeyFilename: key,
