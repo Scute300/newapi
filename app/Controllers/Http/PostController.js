@@ -201,7 +201,7 @@ class PostController {
     }
     
     async curriculum({auth, request, response}){
-      const data= request.file('curriculum')
+      const data= request.all()
       try{
         const jwtClient = await new google.auth.JWT(
         key.client_email,
