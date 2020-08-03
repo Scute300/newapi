@@ -7,7 +7,7 @@ const Cloudinary = use('Cloudinary')
 const fs = use('fs');
 const path = use('path')
 const key = use("App/petras-a108b-9387b564933a");
-const google = use("googleapis");
+const {Storage} = require('@google-cloud/storage');
 const axios = use('axios')
 
 
