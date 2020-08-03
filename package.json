@@ -27,6 +27,8 @@
     "@adonisjs/mail": "^3.0.10",
     "@adonisjs/validator": "^5.0.6",
     "adonis-4-cloudinary": "^1.0.2",
+    "google-auth-library": "^6.0.6",
+    "googleapis": "^39.2.0",
     "mariadb": "^2.4.2",
     "mysql2": "^2.1.0",
     "random-string": "^0.2.0"
