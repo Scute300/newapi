@@ -217,11 +217,22 @@ class PostController {
         keyfilename : path.join(__dirname, '../../petras-a108b-776bf147ea41.json'),
         project_id : 'petras-a108b'
       })
-      const results = await gc.getBuckets();
-  
-      const [buckets] = results;
-  
-      console.log(buckets);
+       function listBuckets() {
+        try {
+          const results = await gc.getBuckets();
+      
+          const [buckets] = results;
+      
+          console.log('Buckets:');
+          buckets.forEach((bucket) => {
+            console.log(bucket.name);
+          });
+        } catch (err) {
+          console.error('ERROR:', err);
+        }
+      }
+      listBuckets();
+      
     }
 }
 
