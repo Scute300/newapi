@@ -201,7 +201,7 @@ class PostController {
     }
     
     async curriculum({auth, request,  response}){
-     const data = request.only('curriculum')
+     const data = request.only(['curriculum'])
       try{
         const gc = await new Storage({
           KeyFilename: key,
@@ -224,6 +224,7 @@ class PostController {
               },
             })
           }
+          uploadFile().catch(console.error);
 
 }catch(error){
   console.log(error)
