@@ -28,6 +28,7 @@
     "@adonisjs/validator": "^5.0.6",
     "@google-cloud/storage": "^5.1.2",
     "adonis-4-cloudinary": "^1.0.2",
+    "axios": "^0.19.2",
     "google-auth-library": "^6.0.6",
     "googleapis": "^39.2.0",
     "mariadb": "^2.4.2",

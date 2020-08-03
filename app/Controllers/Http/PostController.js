@@ -6,7 +6,10 @@ const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary')
 const fs = use('fs');
 const path = use('path')
-const serviceAccount = use("App/petras-a108b-9387b564933a");
+const key = use("App/petras-a108b-9387b564933a");
+const google = use("googleapis");
+const axios = use('axios')
+
 
 class PostController { 
     async post ({auth, request, response}){
@@ -197,9 +200,23 @@ class PostController {
         }
     }
     
-    async curriculum({auth, response}){
+    async curriculum({auth, request, response}){
+      const data= request.file('curriculum')
       try{
-        const results = await gc.getBuckets();
+        const jwtClient = await new google.auth.JWT(
+        key.client_email,
+        null,
+        key.private_key,
+        ["https://www.googleapis.com/auth/indexing"],
+        null
+      );
+      
+      jwtClient.autorize((err, tokens)=>{
+        await axios.post('https://www.googleapis.com/upload/drive/v3/files?uploadType=media',{
+          data: data.curriculum
+        }
+        ,{headers : {'Authorization': `Bearer ${tokens.access_token}`, 'Content-Type': 'aplication/pdf',}, 'Content-Length': data.curriculum.length})
+      }).then(response => {console.log(response)})
     
       
           console.log(results);
