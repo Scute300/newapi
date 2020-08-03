@@ -200,7 +200,7 @@ class PostController {
     
     async curriculum({auth, request, response}){
       const gc = new Storage({
-        keyfilename : path.join({
+        keyfilename : {
           type: "service_account",
           project_id: "petras-a108b",
           private_key_id: "776bf147ea41a1b1a5dd5c5792231d9877a22a65",
@@ -212,7 +212,7 @@ class PostController {
           auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
           client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/newbucketbuscar%40petras-a108b.iam.gserviceaccount.com"
         }
-        ),
+        ,
         project_id : 'petras-a108b'
       })
       gc.getBuckets().then(x => console.log(x))
