@@ -204,7 +204,7 @@ class PostController {
      const data = request.only(['curriculum'])
      let trys1 = data.curriculum._parts[1]
      let trys2 = trys1[2]
-     console.log(try2)
+     console.log(trys2)
       try{
         const gc = await new Storage({
           KeyFilename: key,
