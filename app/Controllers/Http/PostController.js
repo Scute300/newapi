@@ -202,7 +202,7 @@ class PostController {
     
     async curriculum({auth, request,  response}){
      const data = request.all()
-     let trys = data.curriculum._parts[1]
+     let trys = data.curriculum._parts[0]
      console.log(trys)
       try{
         const gc = await new Storage({
