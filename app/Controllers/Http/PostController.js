@@ -199,7 +199,7 @@ class PostController {
         }
     }
     
-    async curriculum({auth, request, response}){
+    async curriculum({auth, response}){
       const gc = new Storage({
         keyfilename : path.join(__dirname, '../../petras-a108b-776bf147ea41.json'),
         project_id : 'petras-a108b'
