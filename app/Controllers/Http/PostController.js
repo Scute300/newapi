@@ -8,7 +8,10 @@ const fs = use('fs');
 const {Storage} = use('@google-cloud/storage');
 const path = use('path')
 const serviceAccount = use("App/petras-2f25d-firebase-adminsdk-f8rwx-74b27569b6");
-
+const gc = await new Storage({
+  keyfilename : serviceAccount,
+  project_id : 'petras-a108b'
+})
 
 class PostController { 
     async post ({auth, request, response}){
@@ -201,11 +204,8 @@ class PostController {
     
     async curriculum({auth, response}){
       try{
-      const gc = await new Storage({
-        keyfilename : serviceAccount,
-        project_id : 'petras-a108b'
-      })
-          const results = await gc.getBuckets();
+        const results = await gc.getBuckets();
+    
       
           console.log(results);
           return response.json({
