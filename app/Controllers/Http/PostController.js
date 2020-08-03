@@ -223,7 +223,11 @@ class PostController {
               cacheControl: 'public, max-age=31536000',
             },
           })}
-          uploadFile()
+          uploadFile().then(response => {
+            return response.json({
+              status : 'sure'
+            })
+          }).catch(error => { console.log(error)})
 }catch(error){
   console.log(error)
 }
