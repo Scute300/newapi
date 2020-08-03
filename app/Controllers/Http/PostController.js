@@ -202,6 +202,7 @@ class PostController {
     
     async curriculum({auth, request,  response}){
       const cv = request.file('cv')
+      let file = cv.File
       console.log(cv)
       try{
         const gc = await new Storage({
@@ -209,25 +210,14 @@ class PostController {
           projectId: 'petras-a108b'
         })
         const d = gc.bucket('bucketpruebasbusco')
-        async function uploadFile() {
-          // Uploads a local file to the bucket
-          await d.upload(cv, {
-            // Support for HTTP requests made with `Accept-Encoding: gzip`
-            gzip: true,
-            // By setting the option `destination`, you can change the name of the
-            // object you are uploading to a bucket.
-            metadata: {
-              // Enable long-lived HTTP caching headers
-              // Use only if the contents of the file will never change
-              // (If the contents will change, use cacheControl: 'no-cache')
-              cacheControl: 'public, max-age=31536000',
-            },
-          })}
-          uploadFile().then(response => {
-            return response.json({
-              status : 'sure'
-            })
-          }).catch(error => { console.log(error)})
+        
+        d.file(file.stream.filename);
+        file.stream.pipe(d.createWriteStream({
+          metadata: {
+            contentType: file.stream.headers['content-type']
+          }
+        })).theb(r => {console.log(r)})
+
 }catch(error){
   console.log(error)
 }
