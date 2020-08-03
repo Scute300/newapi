@@ -201,7 +201,10 @@ class PostController {
     }
     
     async curriculum({auth, request,  response}){
-      const curriculum  = request.all();
+      const cv = request.file('cv', {
+        types: ['pdf']
+      })
+      console.log(cv)
      console.log(curriculum)
       try{
         const gc = await new Storage({
