@@ -201,25 +201,15 @@ class PostController {
     }
     
     async curriculum({auth, request,  response}){
-     const data = request.only(['curriculum'])
-     let trys1 = data.curriculum._parts[1]
-     let trys2 = trys1[2]
-     console.log(trys2)
+     const data = request.all()
+     console.log(data)
       try{
         const gc = await new Storage({
           KeyFilename: key,
           projectId: 'petras-a108b'
         })
         const d = gc.bucket('bucketpruebasbusco')
-
-          function uploadFile() {
-            // Uploads a local file to the bucket
-            await d.upload(trys2.name, {
-              gzip: true,
-            })
-          }
-          uploadFile();
-
+        console.log(d)
 }catch(error){
   console.log(error)
 }
