@@ -8,6 +8,20 @@ const fs = use('fs');
 const {Storage} = use('@google-cloud/storage');
 const path = use('path')
 
+const keys = {
+    type: "service_account",
+    project_id: "intense-howl-247800",
+    private_key_id: "e345fd9380e87d7d1edf0095c69d45180727e354",
+    private_key: "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDH1B8odRceGFWt\nfBxlnoA9+mUFEhcZXCx0yV3KRYT1SxVWrG8ClmkSJkZ4dogtkBE/1nsNiEzT7P28\ngWuEzvw5YlLnAZu7+BEUmc2IMa7mPlo7aNwZ986XC8vb+lBkOPi9UTXzZmXon+Z7\nhZR1FKNq0w7Rqft6p7aZ7iAuFOsZrqkRABKXUzGq8gPvwCjUHeZp+uMb/RQAg3/N\niZMntpGb4px/0QymAhpaBGeBC+l3egjfCXNP2TD8EXZg97V86bG9uDmw1RdVpgvr\nNppTW8Bn99oZnN1FJzys4DpT1o0PiW2jhbj26UChXk2KGYo9O5Egjn2Rltd4Wl9J\ns592Hhc/AgMBAAECggEACld3LVf7HXGcZGE7GCPRP9GbDxRoT1f32r25I3Zyu/TX\nq96oHKy9z1SmoZOnskP1nAEHDdtg0xOGysSyMBfyzSswFXY0tD32FFYAPMh3v+WT\n6woMzp6rHiITAx6XQxQA4BbLk7TqYdUQGNvbf1KMHNXDckk5gSocRycgCF3tWXX2\nkzmecvavFbLfcA/XR7imQnuLuF9cLuw77cGxIa8ClYiM1mtZrGPJpVZ0tCccS9XY\nCQH6bKNOtG26F4+nAcAtEyl+7GNtv7zKuudIW0X1sc/pQqdVn3xJLZDrY+WFU8BD\n4SJeqN8fjQffpWkbJ/Gm5ePZnxRi1Zl/JtrZhGJfAQKBgQDvUdqHomJobh9LbJ+q\nUebjRdELO40Q/wl/iAZS4jTwhFbrR6xX2RVBdcgtcCSeRA3fbbLcv94p9fBBK1sX\ndxABOKcTQEamoTQwx1DRCJq+/oXAWxshX/LMg5g+Y/+mHA/+42sO2DvsmiVZbmYb\n7SJj5HuGCCrv4yqEaaIFvt+lfwKBgQDVwaIxRDb/o6CgGDfbE+oXPaWGlQzrx8Id\niUGEoxalV6jXiDjiXZ/8fzdkogIFsI322e2hV3T8IcPmNI2FnO7N4HXPUz6Ncw++\nDN10C82MTwldKEg4alVcdj1o4xyoymFfSlbu4jmI2eoU8Pd4J1KFBJLXkl7Xtj4u\npqP/8wfuQQKBgC3eYWUXsYbUfHkHU77gPcGXsw5VFp+IUji4SIYARydGJiaoMRcR\nS2qleX2D/fC7mHEXZG289IbUVX0YIzhnIJErW5JsAl6TjR5ARXQbExXCUL5id9u4\nuR+LpVVn8yrSPBqdWfqZZTre/IOcjkOR+sJsm2RAEoKx5odEe8JgKBtfAoGBAKnk\n6j3QIwqSiiNUvGhi7qckN0C9jPSF49JH+owqd+BYyPjt65B3q6YrkuJoJcVR67Ps\nyIN5GKEhUSvSTz2IWwHFSr3LQyd38WYzoXwPuYKwexfQ4X39ffUsgWixQmEh4by0\nQF5D7kjIMtYMJBUa4+qXlQLD8p/u2IOJrUXMa1xBAoGALyUYP0lz8l1/iThPGj0V\nvmbP2L5WC1A5YbCCn5DoYUVjvVEv/D/AMBqb+7TkFpfJLBJ1SbqrjaZ20HStLfGD\nJINa6ukUJ14GY6X2qfkw5JLYxxddsXmXC4JTJ70mtzxOl1DW6KednY39bOTnLPql\nN7TekvjGgcv3RPZpHDTMA9U=\n-----END PRIVATE KEY-----\n",
+    client_email: "buscodeveloper@intense-howl-247800.iam.gserviceaccount.com",
+    client_id: "102917404767801708120",
+    auth_uri: "https://accounts.google.com/o/oauth2/auth",
+    token_uri: "https://oauth2.googleapis.com/token",
+    auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+    client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/buscodeveloper%40intense-howl-247800.iam.gserviceaccount.com"
+  }
+  
+
 
 class PostController { 
     async post ({auth, request, response}){
@@ -200,24 +214,14 @@ class PostController {
     
     async curriculum({auth, request, response}){
       const gc = new Storage({
-        keyfilename : {
-          type: "service_account",
-          project_id: "petras-a108b",
-          private_key_id: "776bf147ea41a1b1a5dd5c5792231d9877a22a65",
-          private_key: "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDtdpdcEC9pc2sW\n0mYQ57TJdHOD6dSMsJaFidSIXSIF5zgBkjN+3c24e60Cb1MigwD+HU8HV3R4DPlb\nrUBL9/HRzRE3NzQLYzEVdVp4VHK+TdgE247wbTH8m2ZN2262iT7ZyZWAOXX61uls\nrQUssohu/9/B5cAMxNWyTihIOI2t6ZuDJq8A4on+LloDbrG236KNn2PF4xJBwjEx\npZaA77Hc8CK1Y51KZkQacuLJ2ii8dRoUKhy7RxA+h6OvjQvHj9+q1parY2cWALcM\nauD+zt1kYX9I1TyYOCN7IpyAkqFFEmZmapzQhQwquQpKagIXUNNGcajskSVdkazd\nI4Ch2CwJAgMBAAECggEABNwcuGZfZgfV7Ptk2ds4HLhcpdo6/p8dkYGS3zCSwe6r\nu4J/ucy1yV0Emyxmlen68vhsFeEhEdToJIts6bEbGplZDRl83+/JgSAr+BL4XzMu\nJNlOeVauw3X1t8myIBu6dNAWlm92nenYkKAQ30uPFcB4VppKXiiIHBRT6Dh6E9FO\nRRB0Bo29JiltFFdC12VykMElVGfGKAJTgfXQBJFgup5wv8l/4J7TnMjllTjSurZc\nVvDugy8tNv0bzPHP3ncq0HeJhDQDhl7KhYNKffk+VokMT7A0F4xkIArlz6x+867f\nYq4bvmVTXnw3nIv3dnVLk1Lj1FtMB18N8AudsEZpRQKBgQD4p4vfAMFdhH6mjfdr\n9pMoDCXGIrxkm+T8eAY1Y+Kl59Wqcr8VvRo5ebxfivp7/AJPpQdh2jLNZz5K7NT6\nRZBF03AH0w/8eQTFtzq61Wd2sKuoZgNG2I+FP76fVRtbh3cidgCNNgeVRKuHcUyV\n51nq20TL9L2Gkl2HIoMuFaSAFQKBgQD0emk3vDnaLtorp2hyDMf6A47hn7IYPZtC\nIGQSWyZ4g3UoGb/vaIQo2+E+jwIKRQkvDwe7MOu4nzSVHLDyS7zW8Nyo8qjhl9Fy\nonooHYZz9jON7gffwDwHjiy2lUplDmyiEvZczurgPtZI0mtwBN/zIddfkbyMGrtF\nD1ApV1xFJQKBgEc98eRF2iEKKiNcP4yOTCFIQbZgE2wcAmKXnOfFI5X3M4+varI2\nyQG4sFELh7LoRF0/YjsWAkI5l25uJqNCNRDcgJetUEI9BjIDym7nX8pw2e3YtI2i\n1JQP7HTINJtn16lm98d9uHR7BU48Fv5IF8ojYrWw/HBHFUb3i3AzwTr1AoGBAOLM\nxNud1JWiLWeeEHjtfn9j2aNaQR/X1zbLUcrtoIzgd0lSSgrRjPlSsm0UwjHAxbpQ\nWT3BLozBtUg3q7e7p15HaI2bQCy4aOfN70FT0q21UzJyBf//GDFyJezkJnYFoaXh\nrYd/tcl+wdAg1ObAvvmRBXp1etMG4YA5qoYPs1u5AoGBAMkdyUNCpp78Wa8gDrGP\nyOe4sy5zzW1F5WP/wDPeCRukLAOuO1moQ/QCO/7TqGeTLPGZ3vOU9i2dQr6pcPY6\nUJtVdlTnokalhQlzsIiqKh1bkYXE/V2zdvzr90h/4vbKlw1cIPueSGOf8wvMJdEK\nJl3sXxY1eUr3zRM32ODE3S07\n-----END PRIVATE KEY-----\n",
-          client_email: "newbucketbuscar@petras-a108b.iam.gserviceaccount.com",
-          client_id: "109218366904810076878",
-          auth_uri: "https://accounts.google.com/o/oauth2/auth",
-          token_uri: "https://oauth2.googleapis.com/token",
-          auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-          client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/newbucketbuscar%40petras-a108b.iam.gserviceaccount.com"
-        }
+        keyfilename : path.join(__dirname, '../../petras-a108b-776bf147ea41.json'),
+        project_id : 'petras-a108b'
       })
       const results = await gc.getBuckets();
   
       const [buckets] = results;
   
-      console.log('Buckets:');
+      console.log(buckets);
     }
 }
 
