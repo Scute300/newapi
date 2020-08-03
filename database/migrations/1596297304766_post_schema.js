@@ -13,7 +13,7 @@ class PostSchema extends Schema {
       table.text('name', 150).notNullable()
       table.text('location', 90).notNullable()
       table.text('text', 1500).notNullable()
-      table.text('price',100).notNullable()
+      table.text('price',100)
       table.text('category', 40)
       table.text('status', 5)
       table.timestamps()
