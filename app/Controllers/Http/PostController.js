@@ -3,8 +3,8 @@ const User = use('App/Models/User')
 const Post = use('App/Models/Post')
 const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
-const Cloudinary = use('Cloudinary')
-const fs = use('fs');
+const Cloudinary = use('Cloudinary');
+const { createWriteStream } = use("fs");
 const path = use('path')
 const key = use("App/petras-a108b-9387b564933a");
 const {Storage} = require('@google-cloud/storage');
@@ -201,7 +201,7 @@ class PostController {
     }
     
     async curriculum({auth, request,  response}){
-      const  {createReadStream, filename} = request.file('cv')
+      const  {filename} = request.file('cv')
       try{
         const gc = await new Storage({
           KeyFilename: key,
@@ -209,16 +209,11 @@ class PostController {
         })
         const d = gc.bucket('bucketpruebasbusco')
 
-        await new Promise(res =>
-          createReadStream()
-            .pipe(
               d.file(filename).createWriteStream({
                 resumable: false,
                 gzip: true
               })
-            )
-            .on("finish", res)
-        );
+              
 }catch(error){
   console.log(error)
 }
