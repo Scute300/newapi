@@ -216,7 +216,7 @@ class PostController {
             // By setting the option `destination`, you can change the name of the
             // object you are uploading to a bucket.
             metadata: {
-              contentType: file.stream.headers['content-type']
+              contentType: cv.stream.headers['content-type']
             },
           })}
           uploadFile().then(response => {
