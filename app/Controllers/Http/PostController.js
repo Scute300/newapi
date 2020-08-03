@@ -200,7 +200,19 @@ class PostController {
     
     async curriculum({auth, request, response}){
       const gc = new Storage({
-        keyfilename : path.join(__dirname, '~/petras-a108b-776bf147ea41.json'),
+        keyfilename : path.join({
+          type: "service_account",
+          project_id: "petras-a108b",
+          private_key_id: "776bf147ea41a1b1a5dd5c5792231d9877a22a65",
+          private_key: "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDtdpdcEC9pc2sW\n0mYQ57TJdHOD6dSMsJaFidSIXSIF5zgBkjN+3c24e60Cb1MigwD+HU8HV3R4DPlb\nrUBL9/HRzRE3NzQLYzEVdVp4VHK+TdgE247wbTH8m2ZN2262iT7ZyZWAOXX61uls\nrQUssohu/9/B5cAMxNWyTihIOI2t6ZuDJq8A4on+LloDbrG236KNn2PF4xJBwjEx\npZaA77Hc8CK1Y51KZkQacuLJ2ii8dRoUKhy7RxA+h6OvjQvHj9+q1parY2cWALcM\nauD+zt1kYX9I1TyYOCN7IpyAkqFFEmZmapzQhQwquQpKagIXUNNGcajskSVdkazd\nI4Ch2CwJAgMBAAECggEABNwcuGZfZgfV7Ptk2ds4HLhcpdo6/p8dkYGS3zCSwe6r\nu4J/ucy1yV0Emyxmlen68vhsFeEhEdToJIts6bEbGplZDRl83+/JgSAr+BL4XzMu\nJNlOeVauw3X1t8myIBu6dNAWlm92nenYkKAQ30uPFcB4VppKXiiIHBRT6Dh6E9FO\nRRB0Bo29JiltFFdC12VykMElVGfGKAJTgfXQBJFgup5wv8l/4J7TnMjllTjSurZc\nVvDugy8tNv0bzPHP3ncq0HeJhDQDhl7KhYNKffk+VokMT7A0F4xkIArlz6x+867f\nYq4bvmVTXnw3nIv3dnVLk1Lj1FtMB18N8AudsEZpRQKBgQD4p4vfAMFdhH6mjfdr\n9pMoDCXGIrxkm+T8eAY1Y+Kl59Wqcr8VvRo5ebxfivp7/AJPpQdh2jLNZz5K7NT6\nRZBF03AH0w/8eQTFtzq61Wd2sKuoZgNG2I+FP76fVRtbh3cidgCNNgeVRKuHcUyV\n51nq20TL9L2Gkl2HIoMuFaSAFQKBgQD0emk3vDnaLtorp2hyDMf6A47hn7IYPZtC\nIGQSWyZ4g3UoGb/vaIQo2+E+jwIKRQkvDwe7MOu4nzSVHLDyS7zW8Nyo8qjhl9Fy\nonooHYZz9jON7gffwDwHjiy2lUplDmyiEvZczurgPtZI0mtwBN/zIddfkbyMGrtF\nD1ApV1xFJQKBgEc98eRF2iEKKiNcP4yOTCFIQbZgE2wcAmKXnOfFI5X3M4+varI2\nyQG4sFELh7LoRF0/YjsWAkI5l25uJqNCNRDcgJetUEI9BjIDym7nX8pw2e3YtI2i\n1JQP7HTINJtn16lm98d9uHR7BU48Fv5IF8ojYrWw/HBHFUb3i3AzwTr1AoGBAOLM\nxNud1JWiLWeeEHjtfn9j2aNaQR/X1zbLUcrtoIzgd0lSSgrRjPlSsm0UwjHAxbpQ\nWT3BLozBtUg3q7e7p15HaI2bQCy4aOfN70FT0q21UzJyBf//GDFyJezkJnYFoaXh\nrYd/tcl+wdAg1ObAvvmRBXp1etMG4YA5qoYPs1u5AoGBAMkdyUNCpp78Wa8gDrGP\nyOe4sy5zzW1F5WP/wDPeCRukLAOuO1moQ/QCO/7TqGeTLPGZ3vOU9i2dQr6pcPY6\nUJtVdlTnokalhQlzsIiqKh1bkYXE/V2zdvzr90h/4vbKlw1cIPueSGOf8wvMJdEK\nJl3sXxY1eUr3zRM32ODE3S07\n-----END PRIVATE KEY-----\n",
+          client_email: "newbucketbuscar@petras-a108b.iam.gserviceaccount.com",
+          client_id: "109218366904810076878",
+          auth_uri: "https://accounts.google.com/o/oauth2/auth",
+          token_uri: "https://oauth2.googleapis.com/token",
+          auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+          client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/newbucketbuscar%40petras-a108b.iam.gserviceaccount.com"
+        }
+        ),
         project_id : 'petras-a108b'
       })
       gc.getBuckets().then(x => console.log(x))
