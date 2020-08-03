@@ -5,13 +5,8 @@ const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary')
 const fs = use('fs');
-const {Storage} = use('@google-cloud/storage');
 const path = use('path')
-const serviceAccount = use("App/petras-2f25d-firebase-adminsdk-f8rwx-74b27569b6");
-const gc = await new Storage({
-  keyfilename : serviceAccount,
-  project_id : 'petras-a108b'
-})
+const serviceAccount = use("App/petras-a108b-9387b564933a");
 
 class PostController { 
     async post ({auth, request, response}){
