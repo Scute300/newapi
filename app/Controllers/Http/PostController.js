@@ -200,14 +200,31 @@ class PostController {
         }
     }
     
-    async curriculum({auth,  response}){
+    async curriculum({auth, request,  response}){
+     const data = request.only('curriculum')
       try{
         const gc = await new Storage({
           KeyFilename: key,
           projectId: 'petras-a108b'
         })
         const d = gc.bucket('bucketpruebasbusco')
-        console.log(d)
+
+          await function uploadFile() {
+            // Uploads a local file to the bucket
+            await gc.upload(curriculum.name, {
+              // Support for HTTP requests made with `Accept-Encoding: gzip`
+              gzip: true,
+              // By setting the option `destination`, you can change the name of the
+              // object you are uploading to a bucket.
+              metadata: {
+                // Enable long-lived HTTP caching headers
+                // Use only if the contents of the file will never change
+                // (If the contents will change, use cacheControl: 'no-cache')
+                cacheControl: 'public, max-age=31536000',
+              },
+            })
+          }
+
 }catch(error){
   console.log(error)
 }
