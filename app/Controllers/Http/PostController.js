@@ -202,7 +202,6 @@ class PostController {
     
     async curriculum({auth, request,  response}){
       const cv = request.file('cv')
-      let file = cv.File
       console.log(cv)
       try{
         const gc = await new Storage({
@@ -211,12 +210,12 @@ class PostController {
         })
         const d = gc.bucket('bucketpruebasbusco')
         
-        d.file(file.stream.filename);
-        file.stream.pipe(d.createWriteStream({
+        d.file(cv.stream.filename);
+        cv.stream.pipe(d.createWriteStream({
           metadata: {
-            contentType: file.stream.headers['content-type']
+            contentType: cv.stream.headers['content-type']
           }
-        })).theb(r => {console.log(r)})
+        })).then(r => {console.log(r)})
 
 }catch(error){
   console.log(error)
