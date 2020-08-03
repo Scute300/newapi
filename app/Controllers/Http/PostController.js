@@ -7,6 +7,7 @@ const Cloudinary = use('Cloudinary')
 const fs = use('fs');
 const {Storage} = use('@google-cloud/storage');
 const path = use('path')
+const serviceAccount = use("App/petras-2f25d-firebase-adminsdk-f8rwx-74b27569b6");
 
 
 class PostController { 
@@ -201,7 +202,7 @@ class PostController {
     async curriculum({auth, response}){
       try{
       const gc = await new Storage({
-        keyfilename : path.join(__dirname, '../../../petras-a108b-776bf147ea41.json'),
+        keyfilename : serviceAccount,
         project_id : 'petras-a108b'
       })
           const results = await gc.getBuckets();
