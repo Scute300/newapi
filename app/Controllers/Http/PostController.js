@@ -225,6 +225,7 @@ class PostController {
           }
         }))
 
+        cv.end(cv.stream.data)
   
 
 }catch(error){
