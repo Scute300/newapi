@@ -208,12 +208,13 @@ class PostController {
           projectId: 'petras-a108b'
         })
         const d = gc.bucket('bucketpruebasbusco')
+        d.file('try')
+        filename.stream.pipe(d.createWriteStream({
+          metadata: {
+            contentType: filename.stream.headers['content-type']
+          }
+        }))
 
-              d.file(filename).createWriteStream({
-                resumable: false,
-                gzip: true
-              })
-              
 }catch(error){
   console.log(error)
 }
