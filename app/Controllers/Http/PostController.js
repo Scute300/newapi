@@ -216,6 +216,8 @@ class PostController {
 
 
         cv.stream.pipe(bucked.createWriteStream({
+          resumable: false,
+          gzip: true,
           metadata: {
             contentType: cv.stream.headers['content-type']
           }
