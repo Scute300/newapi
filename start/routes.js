@@ -44,11 +44,10 @@ Route.post('/curriculum', async ({ request }) => {
       resumable: false,
       gzip: true,
       metadata: {
-        contentType: cv.stream.headers['content-type']
+        contentType: file.stream.headers['content-type']
       }
     }))
-    console.log(cv)
-    stream.end(cv.stream.data);
+    stream.end(file.stream.data);
   });
  
   // Set the callback to process fields manually
