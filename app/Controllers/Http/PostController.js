@@ -205,8 +205,7 @@ class PostController {
     
     async curriculum({auth, request,  response}){
       const  cv = request.file('cv')
-  
-      console.log(cv)
+      
     
       try{
         const gc = await new Storage({
@@ -224,7 +223,7 @@ class PostController {
             contentType: cv.stream.headers['content-type']
           }
         }))
-
+        console.log(cv)
         stream.end(cv.stream.data);
 
   
