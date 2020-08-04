@@ -199,7 +199,7 @@ class PostController {
     }
     
     async curriculum({auth, request,  response}){
-      const  cv = request.multipart.file('cv')
+      const  cv = request.file('cv')
       console.log(cv)
 
       try{
@@ -208,8 +208,7 @@ class PostController {
           projectId: 'petras-a108b'
         })
 
-        const dfile = gc.bucket('bucketpruebasbusco')
-        const file = dfile.file(cv);
+        const dfile = gc.bucket('bucketpruebasbusco').file(cv)
 
 }catch(error){
   console.log(error)
