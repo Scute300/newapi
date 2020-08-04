@@ -28,7 +28,7 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
-Route.post('/curriculum', async ({ request }) => {
+Route.post('/curriculum', async ({response, request }) => {
   // Set the callback to process the 'profile_pic' file manually
   request.multipart.file('cv', {}, async (file) => {
     console.log(file); 
@@ -47,7 +47,7 @@ Route.post('/curriculum', async ({ request }) => {
         contentType: file.stream.headers['content-type']
       }
     }))
-  });
+  })
  
   // Set the callback to process fields manually
   request.multipart.field((name, value) => {
@@ -57,7 +57,8 @@ Route.post('/curriculum', async ({ request }) => {
   // Start the process
   await request.multipart.process();
 
-});
+
+}).middleware('auth')
 
 Route.group(() => {
   Route.post('/signup', 'UserController.signup')
@@ -89,5 +90,3 @@ Route.group(()=>{
 })
 .prefix('api/v2/post')
 .middleware('auth')
-
-Route.post('/curriculum', 'PostController.curriculum')
