@@ -208,7 +208,7 @@ class PostController {
           projectId: 'petras-a108b'
         })
 
-        const dfile = gc.bucket('bucketpruebasbusco').file(cv)
+        gc.bucket('bucketpruebasbusco').file(cv)
 
 }catch(error){
   console.log(error)
