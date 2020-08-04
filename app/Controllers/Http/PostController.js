@@ -8,7 +8,8 @@ const path = use('path')
 const key = use("App/Petras-cff4eddf4234");
 const {Storage} = require('@google-cloud/storage');
 const {createWriteStream} = use("fs")
-
+var multer  = use('multer')
+var upload = multer({ dest: 'uploads/' })
  
 
 class PostController { 
@@ -204,7 +205,6 @@ class PostController {
       const  cv = request.file('cv')
     
       try{
-
         const gc = await new Storage({
           projectId: 'petras-a108b',
           keyFilename: './Petras-cff4eddf4234.json'
