@@ -199,9 +199,9 @@ class PostController {
               }
         }
     }
-    async curriculum ({request, response, auth }) {
+    async curriculum ({response, auth ,request}) {
       const user = auth.current.user
-      request.multipart.file('cv', {}, async (file) => {
+      await request.multipart.file('cv', {}, (file) => {
         const gc = await new Storage({
           projectId: GOOGLE_CLOUD_PROJECT_ID,
           keyFilename: GOOGLE_CLOUD_KEYFILE,
