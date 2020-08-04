@@ -1,6 +1,11 @@
 'use strict'
 
 const { RouteGroup, route } = require('@adonisjs/framework/src/Route/Manager')
+const {Storage} = require('@google-cloud/storage');
+const {createWriteStream} = use("fs")
+
+const GOOGLE_CLOUD_PROJECT_ID = "busco-285406"
+const GOOGLE_CLOUD_KEYFILE= path.join('../../busco-285406-038aaa64cff9.json')
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +26,21 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+Route.post('/upload', async ({ request }) => {
+  // Set the callback to process the 'profile_pic' file manually
+  request.multipart.file('cv', {}, async (file) => {
+  console.log(file.clientName, file.stream); 
+  });
+ 
+  // Set the callback to process fields manually
+  request.multipart.field((name, value) => {
+  console.log(name,value); 
+  });
+ 
+  // Start the process
+  await request.multipart.process();
+
+});
 
 Route.group(() => {
   Route.post('/signup', 'UserController.signup')

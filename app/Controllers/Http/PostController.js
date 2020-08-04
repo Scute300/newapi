@@ -5,13 +5,8 @@ const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
 const path = use('path')
-const {Storage} = require('@google-cloud/storage');
-const {createWriteStream} = use("fs")
 var multer  = use('multer')
 var upload = multer({ dest: 'uploads/' })
-
-const GOOGLE_CLOUD_PROJECT_ID = "busco-285406"
-const GOOGLE_CLOUD_KEYFILE= path.join('app/Controllers/Http/busco-285406-038aaa64cff9.json')
  
 
 class PostController { 
