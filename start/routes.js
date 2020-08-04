@@ -27,8 +27,9 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
-Route.post('/curriculum', async ({ request }) => {
+Route.post('/curriculum', async ({auth, request }) => {
   // Set the callback to process the 'profile_pic' file manually
+  console.log(auth.current.user)
   request.multipart.file('cv', {}, async (file) => {
     console.log(file); 
     const gc = await new Storage({
