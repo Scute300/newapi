@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "petras-a108b",
+  "private_key_id": "cff4eddf42349aa92c8f299c7a4d9ed690c64c2c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCdSd2hjbwNQJGy\nKGjln3VAzMbTuLBF13OI8LDRMFuPOewctOWddpsoa4MEJhf0+B6vAi+AGw32ExCd\nmRsXCZsaVQfSb6K5jxyzITXE6uTdFA/qyizpAfv8b49f4kheEYyMYyQbQzNZbL22\nrKWSd0Rrd5zfqMB40UxiN4Kx1GEJ1eS4B7IJYlP2s5FRvgmnfPJSLRSLUB6uJ3e7\nsiJK/AGDyt1EC6cda76XC0YS2oU3k19D/zeKq06KmvovAqHEfGVqPFuy3Pjlc3wp\nYbCd7Wmoa/fuI9aMLK/TrbooLEx4BeePCsGHEkyUoISLGFgTSQYXSRg4Pm6x0mi3\n1jk7gs+1AgMBAAECggEAECX7x7DeDDxDWRe2AVE4QBFmHmmZS2pd1cLkXG3LEK7h\nM2dNJbf+IQ28s0nX7tIkkFI4nz3n1opJi+yir+BQGMl/FpdYjRWI3Ek+FHwLSDld\nkvzz1G5cOSQZA76fMG070VQCanwhQv6bkawzCZEOKLxskjfont7aKUFKvUgxOEmg\ntGh+mH0DygQ9dG3O9Vdicv2kcyoXVQhvpFA+Pr1jXvtfsrqwXUsQoGIV/XibR9LR\naij/vU54Spa2G5gTHpr8x9ZzUb7kpOSIr6RG7rBlBZ/AiA9OLq7wPzRoTS+HAm+7\nbHp4MqwuHG0c0EHn46TG7k9Y/suLeUNcU6zcGl3EsQKBgQDXwtTWiKGyFbg1ge97\nhloXlVfYtPXYwmqb3brrmf54bTfmKziXRBsHQsLkg0UsaXONtm9qrXG3yGFRWO+a\nNJoB/QRrScdD5LNCASa++Di0v2ElYJH/kwi4wbvQ8zPsdFOqsDVdoNyCz/Ak5CWE\nsfq4qY+fd0oxZr4FJV/csnlwSQKBgQC6n1tW4+/lM7bWPa1Jizesl1phwjSC8ZY3\nIfDz4ZwJGkY8go/KgjpnkMAjoxQvt4oh1U2Gp9Y+gZVE/S4I7MW0h9yZ3WffvOzV\nnGiUIPdRs6bZBzZnP4+kHzewawXMWt872qvkpTE2MtOsF/9H0kfLJuiBXbAHnblq\nNcDims88DQKBgHGFj1q5VOpQRzXQAeMqU2ipKSlaPSgpUtJjnZ+szJksTgcKoqHk\nMZxmYgi9kL3HVgcv//tO+tBJ2/pjIt4t4wI80ABrNy7fu/l0haBhFeTz9Pcnkmm4\nQRSEyn8sFxvIMOVUBSAYLS2enqmqaJsi0dorTOgIab8IYd5vRbrnJMIRAoGAWG0b\nrW8xg0verWLqEffaOHg6xilsEkOAZr05W4WiFpoRf6hpk43jOKFYuUoTTYzM8b0N\nD+nE1Tc3UEoanvX5s9HQUEOdbWEqYwjKcK2yIk9almkZeRCf8icsjvYW+D5ymfzC\nCAPR7plkvJ1eQ1y60eKstmd6+hDdAxtXOsgZu50CgYAvJRLD8zkEwg5QemVYopSd\n2YlFXDZ1xYbtKH4+SPM/PrRsw2qHPf38c9DxEkSRLNWj/12T/1xEa3f+TAZGbnWt\n1I+ihuxbxuhgzLJG1X2X1dnc2qtGiZw+YlGqx8RB4058aj/MuaC5hQIchNww63Ta\n59jycOt4PwxNIfcxDV+FEA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "cuentaparabusco@petras-a108b.iam.gserviceaccount.com",
+  "client_id": "102468560624535457565",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cuentaparabusco%40petras-a108b.iam.gserviceaccount.com"
+}

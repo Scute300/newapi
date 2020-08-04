@@ -5,7 +5,7 @@ const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
 const path = use('path')
-const key = use("App/petras-a108b-9387b564933a");
+const key = use("App/Petras-cff4eddf4234");
 const {Storage} = require('@google-cloud/storage');
 const {createWriteStream} = use("fs")
 var multer  = use('multer')
@@ -209,7 +209,7 @@ class PostController {
           projectId: 'petras-a108b',
           KeyFilename: key
         })
-        
+
         const bucked = gc.bucket('bucketpruebasbusco').file(cv.stream.filename)
 
 
