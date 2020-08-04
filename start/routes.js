@@ -68,7 +68,7 @@ Route.post('/curriculum', async ({request, response }) => {
     })
 
     const bucked = gc.bucket('rootbusco')
-    const cloud = bucked.file(auth.current.user.username)
+    const cloud = bucked.file('try')
 
     await file.stream.pipe(cloud.createWriteStream({
       resumable: false,
