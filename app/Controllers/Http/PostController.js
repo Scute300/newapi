@@ -205,12 +205,9 @@ class PostController {
     
       try{
 
-        const config = {
+        const gc = await new Storage({
           projectId: 'petras-a108b',
           keyFilename: './Petras-cff4eddf4234.json'
-        };
-        const gc = await new Storage({
-          config
         })
 
         const bucked = gc.bucket('bucketpruebasbusco').file(cv.stream.filename)
