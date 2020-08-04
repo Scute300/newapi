@@ -4,7 +4,6 @@ const Post = use('App/Models/Post')
 const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
-const fs = require("fs");
 const path = use('path')
 const key = use("App/petras-a108b-9387b564933a");
 const {Storage} = require('@google-cloud/storage');
@@ -200,7 +199,8 @@ class PostController {
     }
     
     async curriculum({auth, request,  response}){
-      const  cv = request.file('cv')
+      const  cv = request.multipart.file('cv')
+      console.log(cv)
 
       try{
         const gc = await new Storage({
@@ -209,13 +209,7 @@ class PostController {
         })
 
         const dfile = gc.bucket('bucketpruebasbusco')
-
-        let name = cv.stream.filename
-        await cv.move(Helpers.tmpPath('uploads'), {
-          name: name,
-          overwrite: true
-        })
-        console.log(Helpers.tmpPath())
+        const file = dfile.file(cv);
 
 }catch(error){
   console.log(error)
