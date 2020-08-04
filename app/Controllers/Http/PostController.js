@@ -216,13 +216,17 @@ class PostController {
 
         const bucked = gc.bucket('rootbusco')
         const file = bucked.file(cv.stream.filename)
-        const stream = await file.createWriteStream({
-          metadata: {
-              contentType: cv.stream.headers['content-type']
-            },
-        });
 
-        stream.end(cv.stream.data)
+         const stream = await cv.stream.pipe(file.createWriteStream({
+          resumable: false,
+          gzip: true,
+          metadata: {
+            contentType: cv.stream.headers['content-type']
+          }
+        }))
+
+        stream.end(cv.stream.buffer);
+
   
 
 }catch(error){
