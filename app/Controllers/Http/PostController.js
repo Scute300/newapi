@@ -207,11 +207,15 @@ class PostController {
           KeyFilename: key,
           projectId: 'petras-a108b'
         })
+
         const dfile = gc.bucket('bucketpruebasbusco')
+
+        let name = cv.stream.filename
         await cv.move(Helpers.tmpPath('uploads'), {
-          name: 'custom-name.jpg',
+          name: name,
           overwrite: true
         })
+        console.log(Helpers.tmpPath())
 
 }catch(error){
   console.log(error)
