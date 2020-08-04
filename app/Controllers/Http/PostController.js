@@ -9,10 +9,6 @@ const key = use("App/Petras-cff4eddf4234");
 const {Storage} = require('@google-cloud/storage');
 const {createWriteStream} = use("fs")
 
-const config = {
-  projectId: 'petras-a108b',
-  keyFilename: './Petras-cff4eddf4234.json'
-};
  
 
 class PostController { 
@@ -208,6 +204,11 @@ class PostController {
       const  cv = request.file('cv')
     
       try{
+
+        const config = {
+          projectId: 'petras-a108b',
+          keyFilename: './Petras-cff4eddf4234.json'
+        };
         const gc = await new Storage({
           config
         })
