@@ -3,6 +3,7 @@
 const { RouteGroup, route } = require('@adonisjs/framework/src/Route/Manager')
 const {Storage} = require('@google-cloud/storage');
 const {createWriteStream} = use("fs")
+const path = use('path')
 
 const GOOGLE_CLOUD_PROJECT_ID = "busco-285406"
 const GOOGLE_CLOUD_KEYFILE= path.join('../../busco-285406-038aaa64cff9.json')
