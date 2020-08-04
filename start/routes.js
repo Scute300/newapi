@@ -77,8 +77,6 @@ Route.post('/curriculum', async ({request, response }) => {
         contentType: file.stream.headers['content-type']
       }
     }))
-  }).then( response =>{
-    console.log(response)
   })
  
   // Set the callback to process fields manually
