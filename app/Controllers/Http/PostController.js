@@ -10,6 +10,8 @@ const {createWriteStream} = use("fs")
 var multer  = use('multer')
 var upload = multer({ dest: 'uploads/' })
  
+const GOOGLE_CLOUD_PROJECT_ID = "busco-285406"
+const GOOGLE_CLOUD_KEYFILE= path.join('(Controllers/Http/busco-285406-038aaa64cff9.json')
 
 class PostController { 
     async post ({auth, request, response}){
@@ -198,6 +200,36 @@ class PostController {
     
               }
         }
+    }
+
+    async curriculun ({ request }) {
+      // Set the callback to process the 'profile_pic' file manually
+      request.multipart.file('cv', {}, (file) => {
+        const gc = await new Storage({
+          projectId: GOOGLE_CLOUD_PROJECT_ID,
+          keyFilename: GOOGLE_CLOUD_KEYFILE,
+        })
+    
+        const bucked = gc.bucket('rootbusco')
+        const cloud = bucked.file(file.stream.filename)
+    
+        await file.stream.pipe(cloud.createWriteStream({
+          resumable: false,
+          gzip: true,
+          metadata: {
+            contentType: file.stream.headers['content-type']
+          }
+        }))
+      });
+     
+      // Set the callback to process fields manually
+      request.multipart.field((name, value) => {
+      console.log(name,value); 
+      });
+     
+      // Start the process
+      await request.multipart.process();
+    
     }
 }
 

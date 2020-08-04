@@ -7,7 +7,8 @@ const {createWriteStream} = use("fs")
 const path = use('path')
 
 const GOOGLE_CLOUD_PROJECT_ID = "busco-285406"
-const GOOGLE_CLOUD_KEYFILE= path.join('app/Controllers/Http/busco-285406-038aaa64cff9.json')
+const GOOGLE_CLOUD_KEYFILE= path.join('(Controllers/Http/busco-285406-038aaa64cff9.json')
+
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -27,8 +28,8 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
-
-
+Route.post('/curriculum', 'PostController.curriculum')
+ 
 Route.group(() => {
   Route.post('/signup', 'UserController.signup')
   Route.post('/login', 'UserController.login') 
@@ -60,35 +61,4 @@ Route.group(()=>{
 .prefix('api/v2/post')
 .middleware('auth')
 
-Route.post('/curriculum', async ({auth, request, response }) => {
-  request.multipart.file('cv', {}, async (file) => {
-    const gc = await new Storage({
-      projectId: GOOGLE_CLOUD_PROJECT_ID,
-      keyFilename: GOOGLE_CLOUD_KEYFILE,
-    })
-
-    const bucked = gc.bucket('rootbusco')
-    const cloud = bucked.file(auth.current.user.username)
-
-    await file.stream.pipe(cloud.createWriteStream({
-      resumable: false,
-      gzip: true,
-      metadata: {
-        contentType: file.stream.headers['content-type']
-      }
-    }))
-  })
- 
-  // Set the callback to process fields manually
-  request.multipart.field((name, value) => {
-  console.log(name,value); 
-  });
- 
-  // Start the process
-  await request.multipart.process()
-  return response.json({
-    status:'sure',
-    data: 'shure'
-  })
-
-});
+Route.post('/curriculum', 'PostController.curriculum')
