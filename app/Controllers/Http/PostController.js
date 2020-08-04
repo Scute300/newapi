@@ -8,9 +8,8 @@ const fs = require("fs");
 const path = use('path')
 const key = use("App/petras-a108b-9387b564933a");
 const {Storage} = require('@google-cloud/storage');
-const axios = use('axios')
-
 const Helpers = use('Helpers')
+
 class PostController { 
     async post ({auth, request, response}){
         const data = request.only(['text', 'name', 'images', 'location' , 'type', 'category', 'price', 'status'])
@@ -209,9 +208,8 @@ class PostController {
           projectId: 'petras-a108b'
         })
         const dfile = gc.bucket('bucketpruebasbusco')
-        cv.stream.pipe(dfile.file('x'))
-        let tryes = fs.createWriteStream(dfile)
-        
+        await cv.moveAll(Helpers.tmpPath('uploads'))
+
 }catch(error){
   console.log(error)
 }
