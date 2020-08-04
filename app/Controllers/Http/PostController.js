@@ -4,7 +4,7 @@ const Post = use('App/Models/Post')
 const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
-const { createWriteStream } = use("fs");
+const fs = require("fs");
 const path = use('path')
 const key = use("App/petras-a108b-9387b564933a");
 const {Storage} = require('@google-cloud/storage');
@@ -202,19 +202,16 @@ class PostController {
     
     async curriculum({auth, request,  response}){
       const  cv = request.file('cv')
+
       try{
         const gc = await new Storage({
           KeyFilename: key,
           projectId: 'petras-a108b'
         })
-        const d = gc.bucket('bucketpruebasbusco')
-        d.file('try')
-        cv.stream.pipe(d.createWriteStream({
-          metadata: {
-            contentType: cv.stream.headers['content-type']
-          }
-        }))
-
+        const dfile = gc.bucket('bucketpruebasbusco')
+        cv.stream.pipe(dfile.file('x'))
+        let tryes = fs.createWriteStream(dfile)
+        
 }catch(error){
   console.log(error)
 }
