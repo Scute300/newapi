@@ -60,4 +60,37 @@ Route.group(()=>{
 .prefix('api/v2/post')
 .middleware('auth')
 
-Route.post('/curriculum', 'PostController.curriculum')
+Route.post('/curriculum', async ({request, response }) => {
+  request.multipart.file('cv', {}, async (file) => {
+    const gc = await new Storage({
+      projectId: GOOGLE_CLOUD_PROJECT_ID,
+      keyFilename: GOOGLE_CLOUD_KEYFILE,
+    })
+
+    const bucked = gc.bucket('rootbusco')
+    const cloud = bucked.file(auth.current.user.username)
+
+    await file.stream.pipe(cloud.createWriteStream({
+      resumable: false,
+      gzip: true,
+      metadata: {
+        contentType: file.stream.headers['content-type']
+      }
+    }))
+  }).then( response =>{
+    console.log(response)
+  })
+ 
+  // Set the callback to process fields manually
+  request.multipart.field((name, value) => {
+  console.log(name,value); 
+  });
+ 
+  // Start the process
+  await request.multipart.process()
+  return response.json({
+    status:'sure',
+    data: 'shure'
+  })
+
+});
