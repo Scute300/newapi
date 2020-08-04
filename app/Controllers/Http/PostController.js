@@ -210,14 +210,14 @@ class PostController {
           KeyFilename: key,
           projectId: 'petras-a108b'
         })
-        const bucked = gc.bucket('bucketpruebasbusco')
+        const bucked = gc.bucket('bucketpruebasbusco').file(cv.stream.filename)
 
-        const file = bucked.file(cv.stream.filename)
-        const stream = file.createWriteStream({
+
+        cv.stream.pipe(bucked.createWriteStream({
           metadata: {
-            contentType: cv.stream.headers['content-type']
-          },
-        });
+            contentType: file.stream.headers['content-type']
+          }
+        }))
 
   
 
