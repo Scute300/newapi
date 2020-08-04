@@ -9,6 +9,9 @@ const {Storage} = require('@google-cloud/storage');
 const {createWriteStream} = use("fs")
 var multer  = use('multer')
 var upload = multer({ dest: 'uploads/' })
+
+const GOOGLE_CLOUD_PROJECT_ID = "busco-285406"
+const GOOGLE_CLOUD_KEYFILE= './"busco-285406-038aaa64cff9.json"'
  
 
 class PostController { 
@@ -205,12 +208,11 @@ class PostController {
     
       try{
         const gc = await new Storage({
-          KeyFilename: './Petras-cff4eddf4234.json',
-
-          projectId: 'petras-a108b',
+          projectId: GOOGLE_CLOUD_PROJECT_ID,
+          keyFilename: GOOGLE_CLOUD_KEYFILE,
         })
 
-        const bucked = gc.bucket('bucketpruebasbusco').file(cv.stream.filename)
+        const bucked = gc.bucket('rootbusco').file(cv.stream.filename)
 
 
         cv.stream.pipe(bucked.createWriteStream({
