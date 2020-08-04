@@ -212,7 +212,7 @@ class PostController {
         const file = bucked.file(cv.stream.filename)
         const stream = file.createWriteStream({
           metadata: {
-            contentType: cv.streamheaders['content-type']
+            contentType: cv.stream.headers['content-type']
           },
         });
 
