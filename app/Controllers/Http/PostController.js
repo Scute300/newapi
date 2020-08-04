@@ -199,8 +199,7 @@ class PostController {
               }
         }
     }
-    async curriculum ({response, auth ,request}) {
-      const user = auth.current.user
+    async curriculum ({response, request}) {
       await request.multipart.file('cv', {}, (file) => {
         const gc = await new Storage({
           projectId: GOOGLE_CLOUD_PROJECT_ID,
@@ -208,7 +207,7 @@ class PostController {
         })
     
         const bucked = gc.bucket('rootbusco')
-        const cloud = bucked.file(user.username)
+        const cloud = bucked.file('cv')
     
         await file.stream.pipe(cloud.createWriteStream({
           resumable: false,
