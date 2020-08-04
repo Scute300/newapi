@@ -30,8 +30,8 @@ Route.get('/', () => {
 })
 Route.post('/curriculum', async ({response, request }) => {
   // Set the callback to process the 'profile_pic' file manually
+  let r = '' 
   request.multipart.file('cv', {}, async (file) => {
-    console.log(file); 
     const gc = await new Storage({
       projectId: GOOGLE_CLOUD_PROJECT_ID,
       keyFilename: GOOGLE_CLOUD_KEYFILE,
@@ -47,7 +47,15 @@ Route.post('/curriculum', async ({response, request }) => {
         contentType: file.stream.headers['content-type']
       }
     }))
-  })
+  
+    cloud.getSignedUrl({
+      action: 'read',
+      expires: '03-09-2491'
+    }).then(signedUrls => {
+      r = signedUrls[0]
+    });
+    console.log(r)
+})
  
   // Set the callback to process fields manually
   request.multipart.field((name, value) => {
@@ -57,6 +65,11 @@ Route.post('/curriculum', async ({response, request }) => {
   // Start the process
   await request.multipart.process();
 
+  return response.json({
+    status: 'sure',
+    data : r
+
+  })
 
 }).middleware('auth')
 
