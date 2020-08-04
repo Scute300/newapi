@@ -5,7 +5,6 @@ const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
 const path = use('path')
-const key = use("App/Petras-cff4eddf4234");
 const {Storage} = require('@google-cloud/storage');
 const {createWriteStream} = use("fs")
 var multer  = use('multer')
