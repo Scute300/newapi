@@ -216,7 +216,7 @@ class PostController {
         const bucked = gc.bucket('rootbusco')
         const file = bucked.file(cv.stream.filename)
 
-         const stream = await cv.stream.pipe(file.createWriteStream({
+         await cv.stream._readableState.pipes(file.createWriteStream({
           resumable: false,
           gzip: true,
           metadata: {
