@@ -214,9 +214,9 @@ class PostController {
           keyFilename: GOOGLE_CLOUD_KEYFILE,
         })
 
-        const bucked = gc.bucket('rootbusco').file(cv.stream.filename)
-
-        const stream = await bucked.createWriteStream({
+        const bucked = gc.bucket('rootbusco')
+        const file = bucked.file(cv.stream.filename)
+        const stream = await file.createWriteStream({
           metadata: {
               contentType: cv.stream.headers['content-type']
             },
