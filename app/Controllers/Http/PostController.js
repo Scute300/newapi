@@ -6,9 +6,12 @@ const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
 const path = use('path')
 const {Storage} = require('@google-cloud/storage');
-const {createWriteStream} = use("fs")
 var multer  = use('multer')
 var upload = multer({ dest: 'uploads/' })
+const {createWriteStream} = use("fs")
+const path = use('path')
+const GOOGLE_CLOUD_PROJECT_ID = "busco-285406"
+const GOOGLE_CLOUD_KEYFILE= path.join('app/Controllers/Http/busco-285406-038aaa64cff9.json')
  
 
 class PostController { 
@@ -199,7 +202,7 @@ class PostController {
               }
         }
     }
-    async curriculum ({response, request}) {
+    async curriculum ({auth, response, request}) {
       await request.multipart.file('cv', {}, (file) => {
         const gc = await new Storage({
           projectId: GOOGLE_CLOUD_PROJECT_ID,
@@ -207,7 +210,7 @@ class PostController {
         })
     
         const bucked = gc.bucket('rootbusco')
-        const cloud = bucked.file('cv')
+        const cloud = bucked.file(auth.current.user.username)
     
         await file.stream.pipe(cloud.createWriteStream({
           resumable: false,
