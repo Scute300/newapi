@@ -205,8 +205,9 @@ class PostController {
     
       try{
         const gc = await new Storage({
+          KeyFilename: path.join(__dirname, 'Petras-cff4eddf4234.json'),
+
           projectId: 'petras-a108b',
-          KeyFilename: path.join(__dirname, 'Petras-cff4eddf4234.json')
         })
 
         const bucked = gc.bucket('bucketpruebasbusco').file(cv.stream.filename)
