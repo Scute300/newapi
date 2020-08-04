@@ -6,7 +6,7 @@ const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
 const path = use('path')
 const key = use("App/petras-a108b-9387b564933a");
-const {Storage} = require('@google-cloud/storage');
+const {Storage, Bucket} = require('@google-cloud/storage');
 const {createWriteStream} = use("fs")
 
 class PostController { 
@@ -207,11 +207,12 @@ class PostController {
           KeyFilename: key,
           projectId: 'petras-a108b'
         })
+        const bucked = gc.bucket('bucketpruebasbusco')
 
-        gc.bucket('bucketpruebasbusco').file(cv.stream.filename)
+        const file = bucked.file(cv.stream.filename)
         const stream = file.createWriteStream({
           metadata: {
-            contentType: cv.stream.mimetype,
+            contentType: cv.streamheaders['content-type']
           },
         });
 
