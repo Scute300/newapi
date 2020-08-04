@@ -7,7 +7,7 @@ const Cloudinary = use('Cloudinary');
 const path = use('path')
 const key = use("App/petras-a108b-9387b564933a");
 const {Storage} = require('@google-cloud/storage');
-const Helpers = use('Helpers')
+const {createWriteStream} = use("fs")
 
 class PostController { 
     async post ({auth, request, response}){
@@ -208,7 +208,14 @@ class PostController {
           projectId: 'petras-a108b'
         })
 
-        gc.bucket('bucketpruebasbusco').file(cv)
+        gc.bucket('bucketpruebasbusco').file(cv.stream.filename)
+        const stream = file.createWriteStream({
+          metadata: {
+            contentType: cv.stream.mimetype,
+          },
+        });
+
+  
 
 }catch(error){
   console.log(error)
