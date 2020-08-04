@@ -211,7 +211,7 @@ class PostController {
         })
         function listBuckets() {
           try {
-            const [buckets] = await storage.getBuckets();
+            const [buckets] = await gc.getBuckets();
         
             console.log('Buckets:');
             buckets.forEach((bucket1) => {
