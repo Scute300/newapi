@@ -203,10 +203,10 @@ class PostController {
     
     async curriculum({auth, request,  response}){
       const  cv = request.file('cv')
-
+    
       try{
         const gc = await new Storage({
-          KeyFilename: key,
+          KeyFilename: '~/app/Petras-cff4eddf4234.json',
           projectId: 'petras-a108b'
         })
 
