@@ -29,7 +29,6 @@ Route.get('/', () => {
 })
 Route.post('/curriculum', async ({request }) => {
   // Set the callback to process the 'profile_pic' file manually
-  console.log(auth.current.user)
   request.multipart.file('cv', {}, async (file) => {
     console.log(file); 
     const gc = await new Storage({
