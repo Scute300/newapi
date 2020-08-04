@@ -5,6 +5,8 @@ const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
 const path = use('path')
+const {Storage} = require('@google-cloud/storage');
+const {createWriteStream} = use("fs")
 var multer  = use('multer')
 var upload = multer({ dest: 'uploads/' })
  
@@ -197,7 +199,6 @@ class PostController {
               }
         }
     }
-    
 }
 
 module.exports = PostController
