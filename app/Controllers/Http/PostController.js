@@ -6,8 +6,11 @@ const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
 const path = use('path')
 const key = use("App/petras-a108b-9387b564933a");
-const {Storage, Bucket} = require('@google-cloud/storage');
+const {Storage} = require('@google-cloud/storage');
 const {createWriteStream} = use("fs")
+var multer  = use('multer')
+var upload = multer({ dest: 'uploads/' })
+ 
 
 class PostController { 
     async post ({auth, request, response}){
