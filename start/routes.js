@@ -2,6 +2,13 @@
 
 const { RouteGroup, route } = require('@adonisjs/framework/src/Route/Manager')
 
+const {Storage} = require('@google-cloud/storage');
+const {createWriteStream} = use("fs")
+const path = use('path')
+
+const GOOGLE_CLOUD_PROJECT_ID = "busco-285406"
+const GOOGLE_CLOUD_KEYFILE= path.join('../../busco-285406-038aaa64cff9.json')
+
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -24,13 +31,6 @@ Route.get('/', () => {
 Route.post('/curriculum', async ({ request }) => {
   // Set the callback to process the 'profile_pic' file manually
   request.multipart.file('cv', {}, async (file) => {
-
-const {Storage} = require('@google-cloud/storage');
-const {createWriteStream} = use("fs")
-const path = use('path')
-
-const GOOGLE_CLOUD_PROJECT_ID = "busco-285406"
-const GOOGLE_CLOUD_KEYFILE= path.join('../../busco-285406-038aaa64cff9.json')
     console.log(file); 
     const gc = await new Storage({
       projectId: GOOGLE_CLOUD_PROJECT_ID,

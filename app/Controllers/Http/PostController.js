@@ -198,35 +198,6 @@ class PostController {
         }
     }
     
-    async curriculum({auth, request,  response}){
-      const  cv = request.file('cv')
-      
-    
-      try{
-        const gc = await new Storage({
-          projectId: GOOGLE_CLOUD_PROJECT_ID,
-          keyFilename: GOOGLE_CLOUD_KEYFILE,
-        })
-
-        const bucked = gc.bucket('rootbusco')
-        const file = bucked.file(cv.stream.filename)
-
-         await cv.stream._readableState.pipes(file.createWriteStream({
-          resumable: false,
-          gzip: true,
-          metadata: {
-            contentType: cv.stream.headers['content-type']
-          }
-        }))
-        console.log(cv)
-        stream.end(cv.stream.data);
-
-  
-
-}catch(error){
-  console.log(error)
-}
-    }
 }
 
 module.exports = PostController
