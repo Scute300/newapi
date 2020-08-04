@@ -60,7 +60,7 @@ Route.group(()=>{
 .prefix('api/v2/post')
 .middleware('auth')
 
-Route.post('/curriculum', async ({request, response }) => {
+Route.post('/curriculum', async ({auth, request, response }) => {
   request.multipart.file('cv', {}, async (file) => {
     const gc = await new Storage({
       projectId: GOOGLE_CLOUD_PROJECT_ID,
@@ -68,7 +68,7 @@ Route.post('/curriculum', async ({request, response }) => {
     })
 
     const bucked = gc.bucket('rootbusco')
-    const cloud = bucked.file('try')
+    const cloud = bucked.file(auth.current.user.username)
 
     await file.stream.pipe(cloud.createWriteStream({
       resumable: false,
