@@ -205,7 +205,7 @@ class PostController {
     
       try{
         const gc = await new Storage({
-          KeyFilename: path.join(__dirname, 'Petras-cff4eddf4234.json'),
+          KeyFilename: './Petras-cff4eddf4234.json',
 
           projectId: 'petras-a108b',
         })
