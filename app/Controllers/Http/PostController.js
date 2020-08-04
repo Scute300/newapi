@@ -205,7 +205,8 @@ class PostController {
     
     async curriculum({auth, request,  response}){
       const  cv = request.file('cv')
-      console.log(cv)
+      console.log(cv.File)
+      console.log(cv.cv)
     
       try{
         const gc = await new Storage({
