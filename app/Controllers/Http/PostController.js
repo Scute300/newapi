@@ -205,7 +205,7 @@ class PostController {
     
     async curriculum({auth, request,  response}){
       const  cv = request.file('cv')
-      console.log(cv.file)
+  
       console.log(cv)
     
       try{
@@ -225,7 +225,7 @@ class PostController {
           }
         }))
 
-        stream.end(cv.stream.buffer);
+        stream.end(cv.stream.data);
 
   
 
