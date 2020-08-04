@@ -5,6 +5,7 @@ const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
 const path = use('path')
+const key = use("App/petras-a108b-9387b564933a");
 const {Storage} = require('@google-cloud/storage');
 const {createWriteStream} = use("fs")
 var multer  = use('multer')
@@ -205,10 +206,9 @@ class PostController {
 
       try{
         const gc = await new Storage({
-          KeyFilename: path.join(__dirname, "../../petras-a108b-9387b564933a.json"),
-          projectId: 'petras-a108b'
+          projectId: 'petras-a108b',
+          KeyFilename: key
         })
-
         const bucked = gc.bucket('bucketpruebasbusco').file(cv.stream.filename)
 
 
