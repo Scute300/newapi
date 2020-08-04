@@ -48,13 +48,6 @@ Route.post('/curriculum', async ({response, request }) => {
       }
     }))
   
-    cloud.getSignedUrl({
-      action: 'read',
-      expires: '03-09-2491'
-    }).then(signedUrls => {
-      r = signedUrls[0]
-    });
-    console.log(r)
 })
  
   // Set the callback to process fields manually
