@@ -9,6 +9,9 @@ const path = use('path')
 const GOOGLE_CLOUD_PROJECT_ID = "busco-285406"
 const GOOGLE_CLOUD_KEYFILE= path.join('app/Controllers/Http/busco-285406-038aaa64cff9.json')
 
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -30,7 +33,6 @@ Route.get('/', () => {
 })
 Route.post('/curriculum', async ({response, request }) => {
   // Set the callback to process the 'profile_pic' file manually
-  let r = '' 
   request.multipart.file('cv', {}, async (file) => {
     const gc = await new Storage({
       projectId: GOOGLE_CLOUD_PROJECT_ID,
@@ -39,6 +41,7 @@ Route.post('/curriculum', async ({response, request }) => {
 
     const bucked = gc.bucket('rootbusco')
     const cloud = bucked.file(file.stream.filename)
+    let r = file.stream.filename
 
     await file.stream.pipe(cloud.createWriteStream({
       resumable: false,
@@ -60,11 +63,10 @@ Route.post('/curriculum', async ({response, request }) => {
 
   return response.json({
     status: 'sure',
-    data : r
-
+    data : `http(s)://storage.googleapis.com/rootbusco/${r}`
   })
 
-}).middleware('auth')
+})
 
 Route.group(() => {
   Route.post('/signup', 'UserController.signup')
