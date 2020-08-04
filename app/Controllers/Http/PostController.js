@@ -209,19 +209,7 @@ class PostController {
           projectId: 'petras-a108b',
           KeyFilename: key
         })
-        function listBuckets() {
-          try {
-            const [buckets] = await gc.getBuckets();
         
-            console.log('Buckets:');
-            buckets.forEach((bucket1) => {
-              console.log(bucket1.name);
-            });
-          } catch (err) {
-            console.error('ERROR:', err);
-          }
-        }
-        listBuckets();
         const bucked = gc.bucket('bucketpruebasbusco').file(cv.stream.filename)
 
 
