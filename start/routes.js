@@ -33,6 +33,7 @@ Route.get('/', () => {
 })
 Route.post('/curriculum', async ({response, request }) => {
   // Set the callback to process the 'profile_pic' file manually
+  let r = ''
   request.multipart.file('cv', {}, async (file) => {
     const gc = await new Storage({
       projectId: GOOGLE_CLOUD_PROJECT_ID,
@@ -41,7 +42,6 @@ Route.post('/curriculum', async ({response, request }) => {
 
     const bucked = gc.bucket('rootbusco')
     const cloud = bucked.file(file.stream.filename)
-    let r = file.stream.filename
 
     await file.stream.pipe(cloud.createWriteStream({
       resumable: false,
