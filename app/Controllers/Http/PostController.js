@@ -203,13 +203,18 @@ class PostController {
     
     async curriculum({auth, request,  response}){
       const  cv = request.file('cv')
-      console.log(cv)
 
       try{
         const gc = await new Storage({
           KeyFilename: key,
           projectId: 'petras-a108b'
         })
+        const results = await gc.getBuckets();
+
+        const [buckets] = results;
+
+        console.log(buckets)
+
         const bucked = gc.bucket('bucketpruebasbusco').file(cv.stream.filename)
 
 
