@@ -98,4 +98,3 @@ Route.group(()=>{
   Route.post('/newcv', 'PostController.postcv')
 })
 .prefix('api/v2/post')
-.middleware('auth')
