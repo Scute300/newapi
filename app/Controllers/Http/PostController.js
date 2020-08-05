@@ -201,7 +201,7 @@ class PostController {
       const user = auth.current.user
       console.log(data)
       try{
-        const cv = await Curriculo.findByl('user_id', user.id)
+        const cv = await Curriculo.findBy('user_id', user.id)
 
         console.log(cv)
 }catch(error){
