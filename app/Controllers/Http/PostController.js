@@ -197,8 +197,9 @@ class PostController {
     }
 
     async postcv ({auth, request, response}){
-      const link = request.only(['image'])
+      const data = request.only(['image'])
       const user = auth.current.user
+      console.log(data)
       try{
         const cv = await Curriculo.findByl('user_id', user.id)
 
