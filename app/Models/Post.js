@@ -5,7 +5,7 @@ const Model = use('Model')
 
 class Post extends Model {
     user(){
-        this.belongsTo('App/Models/Post')
+        this.belongsTo('App/Models/User')
     }
     images(){
         this.hasMany('App/Models/Postimage')
