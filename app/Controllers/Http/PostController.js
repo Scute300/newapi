@@ -200,11 +200,15 @@ class PostController {
       const link = request.only(['image'])
       const user = auth.current.user
       try{
-        const cv = await Curriculo.findByOrFail('user_id', user.id)
+        const cv = await Curriculo.findByl('user_id', user.id)
 
         console.log(cv)
 }catch(error){
   console.log(error)
+  return response.status(400).json({
+    data: 'wrong',
+    message: 'error'
+  })
 }
 
     }
