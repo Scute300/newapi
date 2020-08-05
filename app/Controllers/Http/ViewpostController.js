@@ -6,24 +6,24 @@ const Post = use('App/Models/Post')
 
 class ViewpostController {
     async getonepost({params, response}){
-
+        try{
         
-        const post = await Post.query()
-        .where('id', params.id)
-        .with('user')
-        .with('images')
-        .firstOrFail()
+            const post = await Post.query()
+            .where('id', params.id)
+            .with('user')
+            .with('images')
+            .firstOrFail()
+            
+            return response.status(400).json({
+                status : 'sure',
+                data: post })
 
 
-        if (post == null){
+        }catch(error){
+
             return response.status(404).json({
                 status : 'wrong',
                 message: 'Contenido no encontrado'
-            })
-        } else{
-            return response.json({
-                status : 'sure',
-                data: post
             })
         }
     }
