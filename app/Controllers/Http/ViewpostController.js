@@ -11,7 +11,6 @@ class ViewpostController {
         const post = await Post.query()
         .where('id', params.id)
         .with('user')
-        .first()
         .firstOrFail()
 
 
