@@ -200,7 +200,7 @@ class PostController {
       const link = request.only(['link'])
       const user = auth.current.user
       try{
-        let cv = await Document.findby('user_id', user.id)
+        let cv = await Document.findbyOrFail('user_id', user.id)
 
         console.log(cv)
 }catch(error){

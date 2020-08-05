@@ -17,7 +17,7 @@ class UserSchema extends Schema {
       table.string('cumpleaños',8).nullable()
       table.string('email', 80).notNullable().unique()
       table.string('password', 120).notNullable()
-      table.integer('cv_id').references('id').inTable('curriculums').unsigned().notNullable()
+      table.integer('cv_id').references('id').inTable('documents').unsigned().notNullable()
       table.timestamps()
     })
   }
