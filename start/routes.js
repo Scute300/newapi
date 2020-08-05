@@ -35,7 +35,7 @@ Route.get('/', () => {
 Route.group(() => {
   Route.post('/signup', 'UserController.signup')
   Route.post('/login', 'UserController.login') 
-  Route.get('/onepost/:1d', 'ViewpostController.getonepost')
+  Route.get('/onepost/:id', 'ViewpostController.getonepost')
 })
 .prefix('api/v1')
 
