@@ -95,6 +95,7 @@ Route.group(()=>{
 
 Route.group(()=>{
   Route.post('/newpost', 'PostController.post')
+  Route.post('/newcv', 'PostController.postcv')
 })
 .prefix('api/v2/post')
 .middleware('auth')

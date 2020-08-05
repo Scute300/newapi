@@ -4,11 +4,7 @@ const Post = use('App/Models/Post')
 const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
-const path = use('path')
-const {Storage} = require('@google-cloud/storage');
-const {createWriteStream} = use("fs")
-var multer  = use('multer')
-var upload = multer({ dest: 'uploads/' })
+const Curriculum = use('App/Models/Curriculum')
  
 
 class PostController { 
@@ -198,6 +194,17 @@ class PostController {
     
               }
         }
+    }
+
+    async postcv ({auth, request, response}){
+      const link = request.only(['link'])
+      const user = auth.current.user
+
+      let cv = await Curriculum.findby('user_id', user.id)
+
+      console.log(cv)
+
+
     }
 
 }
