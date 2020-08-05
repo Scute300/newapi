@@ -198,10 +198,9 @@ class PostController {
 
     async postcv ({auth, request, response}){
       const data = request.only(['image'])
-      const user = auth.current.user
       console.log(data)
       try{
-        const cv = await Curriculo.findBy('user_id', user.id)
+        const cv = await Curriculo.findBy('user_id', 2)
 
         console.log(cv)
 }catch(error){
