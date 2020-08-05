@@ -14,7 +14,7 @@ class ViewpostController {
             .with('images')
             .firstOrFail()
             
-            return response.status(400).json({
+            return response.status.json({
                 status : 'sure',
                 data: post })
 
