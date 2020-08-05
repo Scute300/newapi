@@ -14,9 +14,10 @@ class ViewpostController {
             .with('images')
             .firstOrFail()
             
-            return response.status.json({
+            return response.json({
                 status : 'sure',
-                data: post })
+                data: post 
+            })
 
 
         }catch(error){
