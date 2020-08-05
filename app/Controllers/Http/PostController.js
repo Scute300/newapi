@@ -197,6 +197,7 @@ class PostController {
 
     async postcv ({auth, request, response}){
       const data = request.only(['image'])
+      try {
       const user = auth.current.user      
       
       const cv = await Curriculo.findBy('user_id', user.id)
@@ -222,6 +223,11 @@ class PostController {
         return response.json({
           status : 'actualizado',
           data : 'sure'
+        })
+      } } catch(error){
+        console.log(error)
+        return response.status(400).json({
+          message: error
         })
       }
   
