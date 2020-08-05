@@ -4,7 +4,7 @@ const Post = use('App/Models/Post')
 const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
-const Document = use('App/Models/Document')
+const Curriculo = use('App/Models/Curriculo')
  
 
 class PostController { 
