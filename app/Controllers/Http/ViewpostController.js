@@ -38,7 +38,7 @@ class ViewpostController {
 
         if(auth.current.user.id == postjson.user_id){
             
-            imageposts = []
+            let imageposts = []
             
             const images = await Postimage.query()
             .where('post_id', data.post.id)
