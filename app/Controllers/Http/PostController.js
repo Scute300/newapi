@@ -200,7 +200,7 @@ class PostController {
       const link = request.only(['image'])
       const user = auth.current.user
       try{
-        let cv = await Document.findByOrFail('user_id', user.id)
+        let cv = await Curriculo.findByOrFail('user_id', user.id)
 
         console.log(cv)
 }catch(error){
