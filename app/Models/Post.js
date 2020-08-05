@@ -5,10 +5,10 @@ const Model = use('Model')
 
 class Post extends Model {
     user(){
-        this.belongsTo('App/Models/User')
+        return this.belongsTo('App/Models/User')
     }
     images(){
-        this.hasMany('App/Models/Postimage')
+        return this.hasMany('App/Models/Postimage')
     }
 }
 

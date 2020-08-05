@@ -5,7 +5,7 @@ const Model = use('Model')
 
 class Postimage extends Model {
     post(){
-        this.belongsTo('App/Models/Post')
+        return this.belongsTo('App/Models/Post')
     }
 }
 
