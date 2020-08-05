@@ -48,7 +48,7 @@ class ViewpostController {
     
             console.log(pimages)
             for (let pimage of pimages) {
-                await Cloudinary.v2.uploader.destroy(imagepost.publicid)
+                await Cloudinary.v2.uploader.destroy(pimage.publicid)
             }
 
             await post.delete() 
