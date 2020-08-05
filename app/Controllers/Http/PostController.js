@@ -4,7 +4,7 @@ const Post = use('App/Models/Post')
 const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
-const Document = use('App/Models/Documents')
+const Document = use('App/Models/Document')
  
 
 class PostController { 
@@ -197,7 +197,7 @@ class PostController {
     }
 
     async postcv ({auth, request, response}){
-      const link = request.only(['link'])
+      const link = request.only(['image'])
       const user = auth.current.user
       try{
         let cv = await Document.findbyOrFail('user_id', user.id)
