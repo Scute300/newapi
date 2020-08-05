@@ -4,7 +4,7 @@ const Post = use('App/Models/Post')
 const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
 const Cloudinary = use('Cloudinary');
-const Curriculum = use('App/Models/Curriculum')
+const Document = use('App/Models/Documents')
  
 
 class PostController { 
@@ -200,7 +200,7 @@ class PostController {
       const link = request.only(['link'])
       const user = auth.current.user
       try{
-        let cv = await Curriculum.findby('user_id', user.id)
+        let cv = await Document.findby('user_id', user.id)
 
         console.log(cv)
 }catch(error){

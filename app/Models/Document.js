@@ -3,10 +3,10 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class Curriculum extends Model {
+class Document extends Model {
     user () {
-      return this.belongsTo('App/Models/User')
+      return this.belongsTo('App/Models/Document')
     }
 }
 
-module.exports = Curriculum
+module.exports = Document
