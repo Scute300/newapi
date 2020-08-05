@@ -41,7 +41,7 @@ class ViewpostController {
             let imageposts = []
             
             const images = await Postimage.query()
-            .where('post_id', data.post.id)
+            .where('post_id', postjson.id)
             .fetch()
 
             const pimages = images.toJSON()
