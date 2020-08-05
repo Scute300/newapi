@@ -1,5 +1,4 @@
 'use strict'
-const User = use('App/Models/User')
 const Post = use('App/Models/Post')
 const Postimage = use('App/Models/Postimage')
 const { validate } = use('Validator')
@@ -198,19 +197,34 @@ class PostController {
 
     async postcv ({auth, request, response}){
       const data = request.only(['image'])
-      console.log(data)
-      try{
-        const cv = await Curriculo.findBy('user_id', 2)
+      const user = auth.current.user      
+      
+      const cv = await Curriculo.findBy('user_id', user.id)
+      if (cv == null){
+        const ncv = await new Curriculo()
+        ncv.user_id = user.user_id
+        ncv.cvlink = data.image
+        await ncv.save()
 
-        console.log(cv)
-}catch(error){
-  console.log(error)
-  return response.status(400).json({
-    data: 'wrong',
-    message: 'error'
-  })
-}
+        cvobject = ncv.toJSON()
 
+        user.cv_id = cvobject.id
+        await user.save()
+
+        return response.json({
+          status : 'posteado',
+          data : user
+        })
+      } else {
+        cv.cvlink = data.image
+        await cv.save()
+
+        return response.json({
+          status : 'actualizado',
+          data : 'sure'
+        })
+      }
+  
     }
 
 }

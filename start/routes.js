@@ -63,7 +63,7 @@ Route.post('/curriculum', async ({response, request }) => {
 
   return response.json({
     status: 'sure',
-    data : `http(s)://storage.googleapis.com/rootbusco/${r}`
+    data : `https://storage.googleapis.com/rootbusco/${r}`
   })
 
 })
@@ -98,3 +98,4 @@ Route.group(()=>{
   Route.post('/newcv', 'PostController.postcv')
 })
 .prefix('api/v2/post')
+.middleware('auth')
