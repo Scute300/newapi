@@ -10,6 +10,9 @@ class Post extends Model {
     images(){
         return this.hasMany('App/Models/Postimage')
     }
+    reports () {
+      return this.hasMany('App/Models/Reports')
+    }
 }
 
 module.exports = Post

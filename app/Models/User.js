@@ -34,6 +34,9 @@ class User extends Model {
   curriculo () {
     return this.hasOne('App/Models/Curriculo')
   }
+  reports () {
+    return this.hasMany('App/Models/Report')
+  }
 }
 
 module.exports = User

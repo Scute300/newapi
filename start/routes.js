@@ -36,6 +36,7 @@ Route.group(() => {
   Route.post('/signup', 'UserController.signup')
   Route.post('/login', 'UserController.login') 
   Route.get('/onepost/:id', 'ViewpostController.getonepost')
+  Route.get('/:category', 'ViewpostController.getallposts')
 })
 .prefix('api/v1')
 
@@ -62,6 +63,7 @@ Route.group(()=>{
   Route.post('/newpost', 'PostController.post')
   Route.post('/newcv', 'PostController.postcv')
   Route.delete('/deletepost/:id', 'ViewpostController.deletepost')
+  Route.post('report/:id', 'ViewpostController.report')
 })
 .prefix('api/v2/post')
 .middleware('auth')
