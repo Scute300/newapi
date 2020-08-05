@@ -207,7 +207,7 @@ class PostController {
         ncv.cvlink = data.image
         await ncv.save()
 
-        cvobject = ncv.toJSON()
+        let cvobject = ncv.toJSON()
 
         user.cv_id = cvobject.id
         await user.save()
