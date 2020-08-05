@@ -31,6 +31,41 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+
+Route.group(() => {
+  Route.post('/signup', 'UserController.signup')
+  Route.post('/login', 'UserController.login') 
+  Route.get('/onepost/:1d', 'ViewpostController.getonepost')
+})
+.prefix('api/v1')
+
+
+
+Route.group(() => {
+  Route.get('/me', 'UserController.me')
+})
+.prefix('api/v2')
+.middleware('auth')
+
+Route.group(()=>{
+  Route.put('/changeavatar', 'UserController.updateProfilePic')
+  Route.put('/changelocation', 'UserController.ubicacion')
+  Route.put('/updateprofile', 'UserController.editprofile')
+  Route.post('/verify', 'UserController.verifypassword')
+  Route.put('/modifyemail', 'UserController.modifyemail')
+  Route.put('/modifypassword', 'UserController.modifypassword')
+})
+.prefix('api/v2/account')
+.middleware('auth')
+
+Route.group(()=>{
+  Route.post('/newpost', 'PostController.post')
+  Route.post('/newcv', 'PostController.postcv')
+})
+.prefix('api/v2/post')
+.middleware('auth')
+
+
 Route.post('/curriculum', async ({response, request }) => {
   // Set the callback to process the 'profile_pic' file manually
   let r = ''
@@ -67,35 +102,3 @@ Route.post('/curriculum', async ({response, request }) => {
   })
 
 })
-
-Route.group(() => {
-  Route.post('/signup', 'UserController.signup')
-  Route.post('/login', 'UserController.login') 
-})
-.prefix('api/v1')
-
-
-
-Route.group(() => {
-  Route.get('/me', 'UserController.me')
-})
-.prefix('api/v2')
-.middleware('auth')
-
-Route.group(()=>{
-  Route.put('/changeavatar', 'UserController.updateProfilePic')
-  Route.put('/changelocation', 'UserController.ubicacion')
-  Route.put('/updateprofile', 'UserController.editprofile')
-  Route.post('/verify', 'UserController.verifypassword')
-  Route.put('/modifyemail', 'UserController.modifyemail')
-  Route.put('/modifypassword', 'UserController.modifypassword')
-})
-.prefix('api/v2/account')
-.middleware('auth')
-
-Route.group(()=>{
-  Route.post('/newpost', 'PostController.post')
-  Route.post('/newcv', 'PostController.postcv')
-})
-.prefix('api/v2/post')
-.middleware('auth')
