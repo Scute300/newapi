@@ -46,9 +46,8 @@ class ViewpostController {
 
             const pimages = images.toJSON()
     
-            imageposts.push({pimages})
-            console.log(imageposts)
-            for (let imagepost of imageposts) {
+            console.log(pimages)
+            for (let pimage of pimages) {
                 await Cloudinary.v2.uploader.destroy(imagepost.publicid)
             }
 
