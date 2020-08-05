@@ -23,7 +23,7 @@ class ViewpostController {
 
             return response.status(404).json({
                 status : 'wrong',
-                message: 'Contenido no encontrado'
+                message: error
             })
         }
     }
