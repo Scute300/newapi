@@ -69,6 +69,7 @@ class ViewpostController {
         
         const data = request.only(['foo']);
         const page = parseInt(data.foo , 10);
+
         const posts = await Post.query()
         .where('type', params.type)
         .with('user')
@@ -76,10 +77,13 @@ class ViewpostController {
         .orderBy('created_at', 'DESC')
         .paginate(page, 3)
 
+        
+        const aposts = await posts.toJSON()
+        let allposts = aposts.data 
+        let data = []
 
-        let elements= []
 
-        for (let post of posts) {
+        for (let post of allposts) {
             let location = post.location
             if(post.user.location !== null){
                 location = post.user.location
@@ -90,13 +94,13 @@ class ViewpostController {
                         price : post.price, status: post.status, id: post.id, creado : post.created_at
                         }
 
-            elements.push(fpost)
+            data.push(fpost)
         }
 
 
         return response.json({
             status: 'sure',
-            data: elements
+            data: data
         })
     }
     
