@@ -88,9 +88,10 @@ class ViewpostController {
             if(post.user.location !== null){
                 location = post.user.location
             }            
+            let image = data.image[0]
             let fpost = {username : post.user.username, location : location,
                         avatar: post.user.avatar, postname : post.name,
-                        image: post.images[0], type: post.type, category: post.category,
+                        image: image.url , type: post.type, category: post.category,
                         price : post.price, status: post.status, id: post.id, creado : post.created_at
                         }
 
