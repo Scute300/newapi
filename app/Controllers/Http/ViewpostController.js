@@ -71,7 +71,7 @@ class ViewpostController {
         const page = parseInt(data.foo , 10);
 
         const posts = await Post.query()
-        .where('category', params.category)
+        .where('type', params.type)
         .with('user')
         .with('images')
         .orderBy('created_at', 'DESC')
