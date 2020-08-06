@@ -70,9 +70,8 @@ class ViewpostController {
         const data = request.only(['foo']);
         const page = parseInt(data.foo , 10);
 
-        const posts = await Post.query
+        const posts = await Post.query()
         .where('category', params.category)
-        .wereNot('user_id', auth.current.user.id)
         .with('user')
         .with('images')
         .orderBy('created_at', 'DESC')
