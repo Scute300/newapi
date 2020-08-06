@@ -65,7 +65,7 @@ class ViewpostController {
         }
     } 
 
-    async getallposts({auth, params, response}){
+    async getallposts({auth, params, response, request}){
         
         const data = request.only(['foo']);
         const page = parseInt(data.foo , 10);
