@@ -69,7 +69,7 @@ class ViewpostController {
         
         const data = request.only(['foo']);
         const page = parseInt(data.foo , 10);
-
+        console.log(params.type)
         const posts = await Post.query()
         .where('type', params.type)
         .with('user')
