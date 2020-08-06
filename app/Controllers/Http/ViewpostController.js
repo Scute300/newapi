@@ -101,7 +101,7 @@ class ViewpostController {
 
         return response.json({
             status: 'sure',
-            data: data
+            data: {data : data}
         })
     }
     
