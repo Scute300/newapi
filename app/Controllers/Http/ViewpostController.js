@@ -69,7 +69,6 @@ class ViewpostController {
         
         const data = request.only(['foo']);
         const page = parseInt(data.foo , 10);
-        console.log(params.type)
         const posts = await Post.query()
         .where('type', params.type)
         .with('user')
@@ -77,9 +76,28 @@ class ViewpostController {
         .orderBy('created_at', 'DESC')
         .paginate(page, 3)
 
+        let pelements = posts.toJSON
+
+        let elements= []
+
+        for (let pelement of pelements) {
+            let location = element.location
+            if(pelement.user.location !== null){
+                location = pelement.user.location
+            }            
+            let fpost = {username : pelement.user.username, location : location,
+                        avatar: pelement.user.avatar, postname : pelement.name,
+                        image: pelement.images[0], type: pelement.type, category: pelement.category,
+                        price : pelement.price, status: pelement.status, id: pelement.id, creado : pelement.created_at
+                        }
+
+            elements.push(fpost)
+        }
+
+
         return response.json({
             status: 'sure',
-            data: posts
+            data: elements
         })
     }
     
