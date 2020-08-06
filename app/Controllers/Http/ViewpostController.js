@@ -67,8 +67,8 @@ class ViewpostController {
 
     async getallposts({auth, params, response, request}){
         
-        const data = request.only(['foo']);
-        const page = parseInt(data.foo , 10);
+        const pagedata = request.only(['foo']);
+        const page = parseInt(pagedata.foo , 10);
 
         const posts = await Post.query()
         .where('type', params.type)
