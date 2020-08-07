@@ -111,14 +111,15 @@ class ViewpostController {
 
     async find({request, response}){
         const parameters = request.only(['precio', 'type', 
-                                        'category', 'status', 'find'])
+                                        'category', 'status', 'find', 'page'])
         
         const rules = {
             precio: 'number',
             type: 'string|min:7|max:10',
             category: 'max:150',
             status : 'max:5',
-            find: 'required|max:150'
+            find: 'required|max:150',
+            page: 'required|number'
         }
 
         const messages = {
@@ -146,7 +147,7 @@ class ViewpostController {
             .where('status', parameters.status)
             .where('name', 'like', '%' + parameters.find + '%')
             .orderBy('created_at', 'DESC')
-            .paginate(page, 3)
+            .paginate(parameters.page, 3)
 
             const aposts = await posts.toJSON()
             let allposts = aposts.data 
