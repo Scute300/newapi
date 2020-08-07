@@ -139,10 +139,13 @@ class ViewpostController {
             message: error.message
         })
 
+
         } else{
+            let posts = undefined
+
             switch(parameters.type){
                 case 'listado':
-                    const posts = await Post.query()
+                    posts = await Post.query()
                     .where('type', parameters.type)
                     .where('category', parameters.category)
                     .where('price', '<', parameters.precio)
@@ -153,7 +156,7 @@ class ViewpostController {
                     .paginate(parameters.page, 3)
                 break
                 case 'negocio':
-                    const posts = await Post.query()
+                    posts = await Post.query()
                     .where('type', parameters.type)
                     .where('category', parameters.category)
                     .where('name', 'like', '%' + parameters.find + '%')
@@ -163,7 +166,7 @@ class ViewpostController {
                     .paginate(parameters.page, 3)
                 break
                 case('servicio'):
-                    const posts = await Post.query()
+                    posts = await Post.query()
                     .where('type', parameters.type)
                     .where('category', parameters.category)
                     .where('name', 'like', '%' + parameters.find + '%')
@@ -173,7 +176,7 @@ class ViewpostController {
                     .paginate(parameters.page, 3)
                 break
                 case 'vacante': 
-                    Post.query()
+                    posts = await Post.query()
                     .where('type', parameters.type)
                     .where('name', 'like', '%' + parameters.find + '%')
                     .with('user')
