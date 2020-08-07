@@ -243,7 +243,7 @@ class ViewpostController {
                 }  
                 
                 let myprice = post.price
-                if(myprice == price){
+                if(myprice < price){
                     let image = post.images[0]
                     let fpost = {username : post.user.username, location : location,
                                 avatar: post.user.avatar, postname : post.name,
