@@ -74,6 +74,7 @@ class ViewpostController {
         const pagedata = request.only(['foo']);
         const page = parseInt(pagedata.foo , 10);
 
+
         const posts = await Post.query()
         .where('type', params.type)
         .with('user')
@@ -139,16 +140,48 @@ class ViewpostController {
         })
 
         } else{
-
-            const posts = await Post.query()
-            .where('type', parameters.type)
-            .where('category', parameters.category)
-            .where('price', '<', parameters.precio)
-            .where('name', 'like', '%' + parameters.find + '%')
-            .with('user')
-            .with('images')
-            .orderBy('created_at', 'DESC')
-            .paginate(parameters.page, 3)
+            switch(parameters.type){
+                case 'listado':
+                    const posts = await Post.query()
+                    .where('type', parameters.type)
+                    .where('category', parameters.category)
+                    .where('price', '<', parameters.precio)
+                    .where('name', 'like', '%' + parameters.find + '%')
+                    .with('user')
+                    .with('images')
+                    .orderBy('created_at', 'DESC')
+                    .paginate(parameters.page, 3)
+                break
+                case 'negocio':
+                    const posts = await Post.query()
+                    .where('type', parameters.type)
+                    .where('category', parameters.category)
+                    .where('name', 'like', '%' + parameters.find + '%')
+                    .with('user')
+                    .with('images')
+                    .orderBy('created_at', 'DESC')
+                    .paginate(parameters.page, 3)
+                break
+                case('servicio'):
+                    const posts = await Post.query()
+                    .where('type', parameters.type)
+                    .where('category', parameters.category)
+                    .where('name', 'like', '%' + parameters.find + '%')
+                    .with('user')
+                    .with('images')
+                    .orderBy('created_at', 'DESC')
+                    .paginate(parameters.page, 3)
+                break
+                case 'vacante': 
+                    Post.query()
+                    .where('type', parameters.type)
+                    .where('name', 'like', '%' + parameters.find + '%')
+                    .with('user')
+                    .with('images')
+                    .orderBy('created_at', 'DESC')
+                    .paginate(parameters.page, 3)
+                break
+            }
 
             const aposts = await posts.toJSON()
             let allposts = aposts.data 
