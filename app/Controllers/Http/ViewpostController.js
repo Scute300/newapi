@@ -163,7 +163,7 @@ class ViewpostController {
                     location = post.user.location
                 }            
 
-                let image = post.images[0]
+                let image = post.images[1]
                 let fpost = {username : post.user.username, location : location,
                             avatar: post.user.avatar, postname : post.name,
                             image: image.url , type: post.type, category: post.category,
