@@ -114,7 +114,7 @@ class ViewpostController {
         const parameters = request.only(['precio', 'type', 
                                         'category', 'status', 'find', 'page', 'isadvancesearch'])
         const page = parseInt(parameters.precio , 10);
-        const price = parseFloat(parameters.precio)
+        const price = parseFloat(parameters.precio, 10)
         
         console.log(parameters)
 
@@ -242,7 +242,7 @@ class ViewpostController {
                     location = post.user.location
                 }  
                 
-                let myprice = post.price
+                let myprice = parseFloat(post.price, 10)
                 if(myprice < price){
                     let image = post.images[0]
                     let fpost = {username : post.user.username, location : location,
