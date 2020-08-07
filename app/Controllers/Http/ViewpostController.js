@@ -194,7 +194,7 @@ class ViewpostController {
                         case 'listado':
                             posts = await Post.query()
                             .where('type', parameters.type)
-                            .whereRaw('name = ?', [parameters.find])
+                            .where('name', 'like', '%' + parameters.find + '%')
                             .with('user')
                             .with('images')
                             .orderBy('created_at', 'DESC')
@@ -279,6 +279,45 @@ class ViewpostController {
              status: 'sure',
              data :'Se ha enviado el reporte y se atenderá en breve'
          })
+    }
+
+    async myposts({auth, params, response}){
+        
+
+
+        const posts = await Post.query()
+        .where('user_id', auth.current.user.id)
+        .with('user')
+        .with('images')
+        .orderBy('created_at', 'DESC')
+        .paginate(params.page, 3)
+
+        
+        const aposts = await posts.toJSON()
+        let allposts = aposts.data 
+        let data = []
+
+
+        for (let post of allposts) {
+            let location = post.location
+            if(post.user.location !== null){
+                location = post.user.location
+            }            
+            let image = post.images[0]
+            let fpost = {username : post.user.username, location : location,
+                        avatar: post.user.avatar, postname : post.name,
+                        image: image.url , type: post.type, category: post.category,
+                        price : post.price, status: post.status, id: post.id, creado : post.created_at
+                        }
+
+            data.push(fpost)
+        }
+
+
+        return response.json({
+            status: 'sure',
+            data: data
+        })
     }
 }
 
