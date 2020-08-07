@@ -194,7 +194,7 @@ class ViewpostController {
                         case 'listado':
                             posts = await Post.query()
                             .where('type', parameters.type)
-                            .where('name', 'like', '%' + parameters.find + '%')
+                            .where('name', '=', parameters.find)
                             .with('user')
                             .with('images')
                             .orderBy('created_at', 'DESC')
@@ -231,6 +231,7 @@ class ViewpostController {
                 }
 
             const aposts = await posts.toJSON()
+            
             let allposts = aposts.data 
 
             let data = []
