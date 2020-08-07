@@ -144,7 +144,6 @@ class ViewpostController {
             .where('type', parameters.type)
             .where('category', parameters.category)
             .where('price', '<', parameters.precio)
-            .where('status', parameters.status)
             .where('name', 'like', '%' + parameters.find + '%')
             .with('user')
             .with('images')
