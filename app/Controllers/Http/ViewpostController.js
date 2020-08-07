@@ -127,7 +127,7 @@ class ViewpostController {
             'find.max' : 'El nombre de lo que buscas no debe exceder los 100 caracteres',
           }
 
-        const validation = await validate(data, rules, messages)
+        const validation = await validate(parameters, rules, messages)
         if(validation.fails()){
 
         const message = validation.messages()
@@ -151,6 +151,7 @@ class ViewpostController {
 
             const aposts = await posts.toJSON()
             let allposts = aposts.data 
+
             let data = []
 
 
