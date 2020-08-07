@@ -147,6 +147,7 @@ class ViewpostController {
             .where('status', parameters.status)
             .where('name', 'like', '%' + parameters.find + '%')
             .with('user')
+            .with('images')
             .orderBy('created_at', 'DESC')
             .paginate(parameters.page, 3)
 
@@ -163,7 +164,7 @@ class ViewpostController {
                     location = post.user.location
                 }            
 
-                let image = post.images[1]
+                let image = post.images[0]
                 let fpost = {username : post.user.username, location : location,
                             avatar: post.user.avatar, postname : post.name,
                             image: image.url , type: post.type, category: post.category,
