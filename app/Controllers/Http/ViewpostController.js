@@ -69,7 +69,7 @@ class ViewpostController {
         }
     } 
 
-    async getallposts({auth, params, response, request}){
+    async getallposts({params, response, request}){
         
         const pagedata = request.only(['foo']);
         const page = parseInt(pagedata.foo , 10);
@@ -243,6 +243,7 @@ class ViewpostController {
                 if(post.user.location !== null){
                     location = post.user.location
                 }  
+                console.log(post)
                 
                 let myprice = parseFloat(post.price, 10)
                 if(myprice < price){
