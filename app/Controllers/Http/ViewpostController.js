@@ -125,7 +125,7 @@ class ViewpostController {
             status : 'max:5',
             find: 'required|max:150',
             page: 'required|number',
-            isadvancesearch: 'boolean|required'
+            isadvancesearch: 'required'
         }
 
         const messages = {
@@ -146,7 +146,7 @@ class ViewpostController {
 
         } else{
             let posts = undefined
-                if(parameters.isadvancesearch == true){
+                if(parameters.isadvancesearch == 'true'){
                     switch(parameters.type){
                         case 'listado':
                             posts = await Post.query()
@@ -189,7 +189,7 @@ class ViewpostController {
                             .paginate(page, 3)
                         break
                     } 
-                }else if(parameters.isadvancesearch == false) {
+                }else if(parameters.isadvancesearch == 'false') {
                     switch(parameters.type){
                         case 'listado':
                             posts = await Post.query()
