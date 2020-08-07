@@ -145,7 +145,6 @@ class ViewpostController {
             .where('price', '<', parameters.precio)
             .where('status', parameters.status)
             .where('name', 'like', '%' + parameters.find + '%')
-            .whereBetween('age',parameters.find)
             .orderBy('created_at', 'DESC')
             .paginate(page, 3)
 
