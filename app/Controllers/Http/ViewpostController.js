@@ -113,7 +113,11 @@ class ViewpostController {
     async find({request, response}){
         const parameters = request.only(['precio', 'type', 
                                         'category', 'status', 'find', 'page', 'isadvancesearch'])
+        const page = parseInt(parameters.precio , 10);
+        const price = parseFloat(parameters.precio)
         
+        console.log(parameters)
+
         const rules = {
             precio: 'number',
             type: 'string|min:7|max:10',
@@ -144,17 +148,15 @@ class ViewpostController {
                 if(parameters.isadvacesearch == true){
                     switch(parameters.type){
                         case 'listado':
-                            parseInt(parameters.precio, 10);
                             posts = await Post.query()
                             .where('type', parameters.type)
                             .where('category', parameters.category)
-                            .where('price', '<', parameters.precio)
                             .where('status', parameters.status)
                             .where('name', 'like', '%' + parameters.find + '%')
                             .with('user')
                             .with('images')
                             .orderBy('created_at', 'DESC')
-                            .paginate(parameters.page, 3)
+                            .paginate(page, 3)
                         break
                         case 'negocio':
                             posts = await Post.query()
@@ -164,7 +166,7 @@ class ViewpostController {
                             .with('user')
                             .with('images')
                             .orderBy('created_at', 'DESC')
-                            .paginate(parameters.page, 3)
+                            .paginate(page, 3)
                         break
                         case('servicio'):
                             posts = await Post.query()
@@ -174,7 +176,7 @@ class ViewpostController {
                             .with('user')
                             .with('images')
                             .orderBy('created_at', 'DESC')
-                            .paginate(parameters.page, 3)
+                            .paginate(page, 3)
                         break
                         case 'vacante': 
                             posts = await Post.query()
@@ -183,7 +185,7 @@ class ViewpostController {
                             .with('user')
                             .with('images')
                             .orderBy('created_at', 'DESC')
-                            .paginate(parameters.page, 3)
+                            .paginate(page, 3)
                         break
                     } 
                 }else {
@@ -195,7 +197,7 @@ class ViewpostController {
                             .with('user')
                             .with('images')
                             .orderBy('created_at', 'DESC')
-                            .paginate(parameters.page, 3)
+                            .paginate(page, 3)
                         break
                         case 'negocio':
                             posts = await Post.query()
@@ -204,7 +206,7 @@ class ViewpostController {
                             .with('user')
                             .with('images')
                             .orderBy('created_at', 'DESC')
-                            .paginate(parameters.page, 3)
+                            .paginate(page, 3)
                         break
                         case('servicio'):
                             posts = await Post.query()
@@ -213,7 +215,7 @@ class ViewpostController {
                             .with('user')
                             .with('images')
                             .orderBy('created_at', 'DESC')
-                            .paginate(parameters.page, 3)
+                            .paginate(page, 3)
                         break
                         case 'vacante': 
                             posts = await Post.query()
@@ -222,7 +224,7 @@ class ViewpostController {
                             .with('user')
                             .with('images')
                             .orderBy('created_at', 'DESC')
-                            .paginate(parameters.page, 3)
+                            .paginate(page, 3)
                         break
                     }   
                 }
@@ -238,16 +240,19 @@ class ViewpostController {
 
                 if(post.user.location !== null){
                     location = post.user.location
-                }            
+                }  
+                
+                let myprice = post.price
+                if(myprice == price){
+                    let image = post.images[0]
+                    let fpost = {username : post.user.username, location : location,
+                                avatar: post.user.avatar, postname : post.name,
+                                image: image.url , type: post.type, category: post.category,
+                                price : post.price, status: post.status, id: post.id, creado : post.created_at
+                                }
 
-                let image = post.images[0]
-                let fpost = {username : post.user.username, location : location,
-                            avatar: post.user.avatar, postname : post.name,
-                            image: image.url , type: post.type, category: post.category,
-                            price : post.price, status: post.status, id: post.id, creado : post.created_at
-                            }
-
-                data.push(fpost)
+                    data.push(fpost)
+                }
             }
 
 
