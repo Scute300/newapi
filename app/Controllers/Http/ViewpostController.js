@@ -194,7 +194,7 @@ class ViewpostController {
                         case 'listado':
                             posts = await Post.query()
                             .where('type', parameters.type)
-                            .whereBetween('id', [parameters.find])
+                            .whereRaw('name = ?', [parameters.find])
                             .with('user')
                             .with('images')
                             .orderBy('created_at', 'DESC')
