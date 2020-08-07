@@ -144,6 +144,7 @@ class ViewpostController {
                 if(parameters.isadvacesearch == true){
                     switch(parameters.type){
                         case 'listado':
+                            parseInt(parameters.precio, 10);
                             posts = await Post.query()
                             .where('type', parameters.type)
                             .where('category', parameters.category)
