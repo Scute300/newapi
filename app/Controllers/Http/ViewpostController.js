@@ -147,7 +147,7 @@ class ViewpostController {
                 case 'listado':
                     posts = await Post.query()
                     .where('type', parameters.type)
-                    .where('category', parameters.category)
+                    .where('category', 'like', '%' + parameters.category + '%')
                     .where('price', '<', parameters.precio)
                     .where('name', 'like', '%' + parameters.find + '%')
                     .with('user')
@@ -158,7 +158,7 @@ class ViewpostController {
                 case 'negocio':
                     posts = await Post.query()
                     .where('type', parameters.type)
-                    .where('category', parameters.category)
+                    .where('category', 'like', '%' + parameters.category + '%')
                     .where('name', 'like', '%' + parameters.find + '%')
                     .with('user')
                     .with('images')
@@ -168,7 +168,7 @@ class ViewpostController {
                 case('servicio'):
                     posts = await Post.query()
                     .where('type', parameters.type)
-                    .where('category', parameters.category)
+                    .where('category', 'like', '%' + parameters.category + '%')
                     .where('name', 'like', '%' + parameters.find + '%')
                     .with('user')
                     .with('images')
