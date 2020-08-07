@@ -283,10 +283,10 @@ class ViewpostController {
 
     async myposts({auth, params, response}){
         
-
+        const user = auth.current.user
 
         const posts = await Post.query()
-        .where('user_id', auth.current.user.id)
+        .where('user_id', user.id)
         .with('user')
         .with('images')
         .orderBy('created_at', 'DESC')
