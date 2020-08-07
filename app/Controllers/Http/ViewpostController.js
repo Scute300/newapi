@@ -112,7 +112,7 @@ class ViewpostController {
 
     async find({request, response}){
         const parameters = request.only(['precio', 'type', 
-                                        'category', 'status', 'find', 'page'])
+                                        'category', 'status', 'find', 'page', 'isadvancesearch'])
         
         const rules = {
             precio: 'number',
@@ -125,7 +125,6 @@ class ViewpostController {
 
         const messages = {
             required: 'Es necesario llenar todos los campos',
-            'precio.required': 'Es necesario establecer un precio limite',
             'find.max' : 'El nombre de lo que buscas no debe exceder los 100 caracteres',
           }
 
@@ -142,49 +141,90 @@ class ViewpostController {
 
         } else{
             let posts = undefined
-
-            switch(parameters.type){
-                case 'listado':
-                    posts = await Post.query()
-                    .where('type', parameters.type)
-                    .where('category', 'like', '%' + parameters.category + '%')
-                    .where('price', '<', parameters.precio)
-                    .where('name', 'like', '%' + parameters.find + '%')
-                    .with('user')
-                    .with('images')
-                    .orderBy('created_at', 'DESC')
-                    .paginate(parameters.page, 3)
-                break
-                case 'negocio':
-                    posts = await Post.query()
-                    .where('type', parameters.type)
-                    .where('category', 'like', '%' + parameters.category + '%')
-                    .where('name', 'like', '%' + parameters.find + '%')
-                    .with('user')
-                    .with('images')
-                    .orderBy('created_at', 'DESC')
-                    .paginate(parameters.page, 3)
-                break
-                case('servicio'):
-                    posts = await Post.query()
-                    .where('type', parameters.type)
-                    .where('category', 'like', '%' + parameters.category + '%')
-                    .where('name', 'like', '%' + parameters.find + '%')
-                    .with('user')
-                    .with('images')
-                    .orderBy('created_at', 'DESC')
-                    .paginate(parameters.page, 3)
-                break
-                case 'vacante': 
-                    posts = await Post.query()
-                    .where('type', parameters.type)
-                    .where('name', 'like', '%' + parameters.find + '%')
-                    .with('user')
-                    .with('images')
-                    .orderBy('created_at', 'DESC')
-                    .paginate(parameters.page, 3)
-                break
-            }
+                if(parameters.isadvacesearch == true){
+                    switch(parameters.type){
+                        case 'listado':
+                            posts = await Post.query()
+                            .where('type', parameters.type)
+                            .where('category', parameters.category)
+                            .where('price', '<', parameters.precio)
+                            .where('status', parameters.status)
+                            .where('name', 'like', '%' + parameters.find + '%')
+                            .with('user')
+                            .with('images')
+                            .orderBy('created_at', 'DESC')
+                            .paginate(parameters.page, 3)
+                        break
+                        case 'negocio':
+                            posts = await Post.query()
+                            .where('type', parameters.type)
+                            .where('category', parameters.category)
+                            .where('name', 'like', '%' + parameters.find + '%')
+                            .with('user')
+                            .with('images')
+                            .orderBy('created_at', 'DESC')
+                            .paginate(parameters.page, 3)
+                        break
+                        case('servicio'):
+                            posts = await Post.query()
+                            .where('type', parameters.type)
+                            .where('category', parameters.category)
+                            .where('name', 'like', '%' + parameters.find + '%')
+                            .with('user')
+                            .with('images')
+                            .orderBy('created_at', 'DESC')
+                            .paginate(parameters.page, 3)
+                        break
+                        case 'vacante': 
+                            posts = await Post.query()
+                            .where('type', parameters.type)
+                            .where('name', 'like', '%' + parameters.find + '%')
+                            .with('user')
+                            .with('images')
+                            .orderBy('created_at', 'DESC')
+                            .paginate(parameters.page, 3)
+                        break
+                    } 
+                }else {
+                    switch(parameters.type){
+                        case 'listado':
+                            posts = await Post.query()
+                            .where('type', parameters.type)
+                            .where('name', 'like', '%' + parameters.find + '%')
+                            .with('user')
+                            .with('images')
+                            .orderBy('created_at', 'DESC')
+                            .paginate(parameters.page, 3)
+                        break
+                        case 'negocio':
+                            posts = await Post.query()
+                            .where('type', parameters.type)
+                            .where('name', 'like', '%' + parameters.find + '%')
+                            .with('user')
+                            .with('images')
+                            .orderBy('created_at', 'DESC')
+                            .paginate(parameters.page, 3)
+                        break
+                        case('servicio'):
+                            posts = await Post.query()
+                            .where('type', parameters.type)
+                            .where('name', 'like', '%' + parameters.find + '%')
+                            .with('user')
+                            .with('images')
+                            .orderBy('created_at', 'DESC')
+                            .paginate(parameters.page, 3)
+                        break
+                        case 'vacante': 
+                            posts = await Post.query()
+                            .where('type', parameters.type)
+                            .where('name', 'like', '%' + parameters.find + '%')
+                            .with('user')
+                            .with('images')
+                            .orderBy('created_at', 'DESC')
+                            .paginate(parameters.page, 3)
+                        break
+                    }   
+                }
 
             const aposts = await posts.toJSON()
             let allposts = aposts.data 
