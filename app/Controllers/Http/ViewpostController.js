@@ -113,7 +113,7 @@ class ViewpostController {
     async find({request, response}){
         const parameters = request.only(['precio', 'type', 
                                         'category', 'status', 'find', 'page', 'isadvancesearch'])
-        const page = parseInt(parameters.precio , 10);
+        const page = parseInt(parameters.page , 10);
         const price = parseFloat(parameters.precio, 10)
         
         console.log(parameters)
