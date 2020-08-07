@@ -5,6 +5,7 @@ const Report = use('App/Models/Report')
 const Post = use('App/Models/Post')
 const Postimage = use('App/Models/Postimage')
 const Cloudinary = use('Cloudinary');
+const { validate } = use('Validator')
 
 
 class ViewpostController {
@@ -31,6 +32,10 @@ class ViewpostController {
             })
         }
     }
+    async finder ({request, response}){
+        const data = request.only('type', 'price', 'operador', 'category')
+
+    }
     async deletepost({auth, params, response}){
 
         const post = await Post.findBy('id', params.id)
@@ -38,7 +43,6 @@ class ViewpostController {
 
         if(auth.current.user.id == postjson.user_id){
             
-            let imageposts = []
             
             const images = await Postimage.query()
             .where('post_id', postjson.id)
@@ -103,6 +107,77 @@ class ViewpostController {
             status: 'sure',
             data: data
         })
+    }
+
+    async find({request, response}){
+        const parameters = request.only(['precio', 'type', 
+                                        'category', 'status', 'find'])
+        
+        const rules = {
+            precio: 'number',
+            type: 'string|min:7|max:10',
+            category: 'max:150',
+            status : 'max:5',
+            find: 'required|max:150'
+        }
+
+        const messages = {
+            required: 'Es necesario llenar todos los campos',
+            'precio.required': 'Es necesario establecer un precio limite',
+            'find.max' : 'El nombre de lo que buscas no debe exceder los 100 caracteres',
+          }
+
+        const validation = await validate(data, rules, messages)
+        if(validation.fails()){
+
+        const message = validation.messages()
+        let error = message[0]
+        return response.status(400).json({
+            status: 'wrong',
+            message: error.message
+        })
+
+        } else{
+
+            const posts = await Post.query()
+            .where('type', parameters.type)
+            .where('category', parameters.category)
+            .where('price', '<', parameters.precio)
+            .where('status', parameters.status)
+            .where('name', 'like', '%' + parameters.find + '%')
+            .whereBetween('age',parameters.find)
+            .orderBy('created_at', 'DESC')
+            .paginate(page, 3)
+
+            const aposts = await posts.toJSON()
+            let allposts = aposts.data 
+            let data = []
+
+
+            for (let post of allposts) {
+                let location = post.location
+                if(post.user.location !== null){
+                    location = post.user.location
+                }            
+
+                let image = post.images[0]
+                let fpost = {username : post.user.username, location : location,
+                            avatar: post.user.avatar, postname : post.name,
+                            image: image.url , type: post.type, category: post.category,
+                            price : post.price, status: post.status, id: post.id, creado : post.created_at
+                            }
+
+                data.push(fpost)
+            }
+
+
+            return response.json({
+                status: 'sure',
+                data: data
+            })
+        }
+
+
     }
     
     async report({auth, request, response, params}){
