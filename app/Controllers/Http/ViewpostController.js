@@ -146,6 +146,7 @@ class ViewpostController {
             .where('price', '<', parameters.precio)
             .where('status', parameters.status)
             .where('name', 'like', '%' + parameters.find + '%')
+            .with('user')
             .orderBy('created_at', 'DESC')
             .paginate(parameters.page, 3)
 
@@ -157,6 +158,7 @@ class ViewpostController {
 
             for (let post of allposts) {
                 let location = post.location
+
                 if(post.user.location !== null){
                     location = post.user.location
                 }            
