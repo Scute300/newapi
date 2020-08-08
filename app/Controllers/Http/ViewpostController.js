@@ -4,6 +4,7 @@ const PostController = require("./PostController")
 const Report = use('App/Models/Report')
 const Post = use('App/Models/Post')
 const Postimage = use('App/Models/Postimage')
+const Cvreport = use('App/Models/Cvreport')
 const Cloudinary = use('Cloudinary');
 const { validate } = use('Validator')
 
@@ -269,17 +270,40 @@ class ViewpostController {
     }
     
     async report({auth, request, response, params}){
-         const data = request.only(['report'])
-         const report = await new Report()
+        const data = request.only(['report'])
 
-         report.user_id = auth.current.user.id
-         report.report = data.report
-         report.post_id = params.id
+        const rules = {
+            report: 'max:350|string|required'
+        }
 
-         return response.json({
-             status: 'sure',
-             data :'Se ha enviado el reporte y se atenderá en breve'
-         })
+        const messages = {
+            required: 'Es necesario llenar todos los campos',
+            max:'Tu reporte no puede exceder 350 caracteres'
+        }
+
+        const validation = await validate(data, rules, messages)
+        if(validation.fails()){
+
+            const message = validation.messages()
+            let error = message[0]
+
+            return response.status(400).json({
+                status: 'wrong',
+                message: error.message
+            })
+
+        } else{ 
+            const report = await new Report()
+
+            report.user_id = auth.current.user.id
+            report.report = data.report
+            report.post_id = params.id
+
+            return response.json({
+                status: 'sure',
+                data :'Se ha enviado el reporte y se atenderá en breve'
+            })
+        }
     }
 
     async myposts({auth, params, response}){
@@ -319,6 +343,44 @@ class ViewpostController {
             status: 'sure',
             data: data
         })
+    }
+    
+    async reportcv({auth, request, response, params}){
+         const data = request.only(['report'])
+
+        const rules = {
+            report: 'max:350|string|required'
+        }
+
+        const messages = {
+            required: 'Es necesario llenar todos los campos',
+            max:'Tu reporte no puede exceder 350 caracteres'
+        }
+
+        const validation = await validate(data, rules, messages)
+        if(validation.fails()){
+
+            const message = validation.messages()
+            let error = message[0]
+
+            return response.status(400).json({
+                status: 'wrong',
+                message: error.message
+            })
+
+        } else{
+
+            const report = await new Cvreport()
+
+            report.user_id = auth.current.user.id
+            report.report = data.report
+            report.curriculo_id = params.id
+
+            return response.json({
+                status: 'sure',
+                data :'Se ha enviado el reporte y se atenderá en breve'
+            })
+        }
     }
 }
 

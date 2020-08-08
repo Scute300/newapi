@@ -7,6 +7,9 @@ class Curriculo extends Model {
     user(){
         return this.belongsTo('App/Models/User')
     }
+    cvreports(){
+        return this.hasMany('App/Models/Cvreport')
+    }
 }
 
 module.exports = Curriculo
