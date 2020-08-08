@@ -19,7 +19,7 @@ class CurriculoController {
         const cv = await Curriculo.query()
         .where('user_id', params.id)
         .with('user')
-        .first()
+        .fetch()
 
 
         return response.json({
