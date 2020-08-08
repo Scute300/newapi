@@ -67,7 +67,7 @@ Route.group(()=>{
   Route.post('/newcv', 'PostController.postcv')
   Route.delete('/deletepost/:id', 'ViewpostController.deletepost')
   Route.post('report/:id', 'ViewpostController.report')
-  Route.post('reportcv/:id')
+  Route.post('reportcv/:id', 'ViewpostController.reportcv')
   Route.get('/myposts/:page', 'ViewpostController.myposts')
 })
 .prefix('api/v2/post')
