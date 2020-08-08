@@ -6,7 +6,7 @@ class CurriculoController {
     async getcurriculums({params, response}){
         const users = await User.query()
         .whereNotNull('cv_id')
-        .paginate(page, 3)
+        .paginate(params.page, 3)
 
         return response.json({
             status: 'sure',
