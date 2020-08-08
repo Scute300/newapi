@@ -201,9 +201,10 @@ class PostController {
       const user = auth.current.user      
       
       const cv = await Curriculo.findBy('user_id', user.id)
-      if (cv == null){
+      console.log(cv)
+      if (cv.data == null){
         const ncv = await new Curriculo()
-        ncv.user_id = user.user_id
+        ncv.user_id = user.id
         ncv.cvlink = data.image
         await ncv.save()
 
