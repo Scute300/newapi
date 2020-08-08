@@ -39,7 +39,7 @@ Route.group(() => {
   Route.get('/posts/:type', 'ViewpostController.getallposts')
   Route.post('/find', 'ViewpostController.find')
   Route.get('/curriculums/:page', 'CurriculoController.getcurriculums')
-  Route.get('/curriculum/:id', 'CurriculoController.getcurriculums')
+  Route.get('/curriculum/:id', 'CurriculoController.getonecv')
 })
 .prefix('api/v1')
 
