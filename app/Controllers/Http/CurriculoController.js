@@ -14,6 +14,19 @@ class CurriculoController {
         })
         
     }
+
+    async getonecv({params, response}){
+        const user = await User.query()
+        .where('id', params.id)
+        .with('curriculo')
+        .firstOrFail()
+
+
+        return response.json({
+            status: 'sure',
+            data: user
+        })
+    }
 }
 
 module.exports = CurriculoController
