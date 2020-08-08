@@ -16,7 +16,7 @@ class CurriculoController {
     }
 
     async getonecv({params, response}){
-        const cv = await user.query()
+        const cv = await User.query()
         .where('id', params.id)
         .with('curriculo')
         .fetch()
