@@ -77,7 +77,7 @@ Route.group(()=>{
 Route.post('/curriculum', async ({response, request }) => {
   // Set the callback to process the 'profile_pic' file manually
   let r = ''
-  request.multipart.file('cv', {}, async (file) => {
+  request.multipart.file('cv', {types: ["pdf"]}, async (file) => {
     const gc = await new Storage({
       projectId: GOOGLE_CLOUD_PROJECT_ID,
       keyFilename: GOOGLE_CLOUD_KEYFILE,
