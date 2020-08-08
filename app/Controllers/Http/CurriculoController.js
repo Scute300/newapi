@@ -16,15 +16,15 @@ class CurriculoController {
     }
 
     async getonecv({params, response}){
-        const user = await User.query()
-        .where('id', params.id)
-        .with('curriculo')
+        const cv = await Curriculo.query()
+        .where('user_id', params.id)
+        .with('user')
         .firstOrFail()
 
 
         return response.json({
             status: 'sure',
-            data: user
+            data: cv
         })
     }
 }

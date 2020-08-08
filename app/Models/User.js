@@ -31,11 +31,11 @@ class User extends Model {
   posts () {
     return this.hasMany('App/Models/Post')
   }
-  curriculo () {
-    return this.hasOne('App/Models/Curriculo')
-  }
   reports () {
     return this.hasMany('App/Models/Report')
+  }
+  curriculo () {
+    return this.hasOne('App/Models/Curriculo')
   }
 }
 
