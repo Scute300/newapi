@@ -13,7 +13,7 @@ class PanelController {
             switch(params.type){
                 case 'reports':
                     reports = await Report.query()
-                    .with('post')
+                    .with(user)
                     .paginate(data.page, 3)
         
                     return response.json({
