@@ -5,10 +5,8 @@ const Cvreport = use('App/Models/Cvreport')
 
 class PanelController {
 
-    async getreports({auth, response, params}){
-
-        const pagedata = request.only(['foo']);
-        const page = parseInt(pagedata.foo , 10);
+    async getreports({auth,request, response, params}){
+        const data = request.only(['page'])
         const user = auth.current.user
         console.log(user.username)
         if(user.username == 'RootAdmin'){
@@ -18,7 +16,7 @@ class PanelController {
                     .with('post', builder => {
                         builder.with('user')
                     })
-                    .paginate(page, 3)
+                    .paginate(data.page, 3)
         
                     return response.json({
                         status: 'sure',
@@ -30,7 +28,7 @@ class PanelController {
                     .with('post', builder => {
                         builder.with('user')
                     })
-                    .paginate(page, 3)
+                    .paginate(data.page, 3)
         
                     return response.json({
                         status: 'sure',

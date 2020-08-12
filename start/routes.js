@@ -74,7 +74,7 @@ Route.group(()=>{
 .middleware('auth')
 
 Route.group(()=>{
-  Route.get('/getreports/:type', 'PanelController.getreports')
+  Route.post('/getreports/:type', 'PanelController.getreports')
   Route.delete('/deletereport/:id', 'PanelController.deletepost')
   Route.get('/reportante/:id', 'PanelController.viewreportante')
   Route.delete('/deletecvreports/:id', 'PanelController.deletecvpost')
