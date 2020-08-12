@@ -4,7 +4,7 @@
 const Model = use('Model')
 
 class Report extends Model {
-    posts () {
+    post () {
       return this.belongsTo('App/Models/Post')
     }
 }

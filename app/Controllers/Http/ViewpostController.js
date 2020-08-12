@@ -302,7 +302,7 @@ class ViewpostController {
 
             return response.json({
                 status: 'sure',
-                data :report
+                data :'Se ha enviado el reporte y se atenderá en breve'
             })
         }
     }
