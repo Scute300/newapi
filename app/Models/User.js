@@ -31,9 +31,6 @@ class User extends Model {
   posts () {
     return this.hasMany('App/Models/Post')
   }
-  reports () {
-    return this.hasMany('App/Models/Report')
-  }
   curriculo () {
     return this.hasOne('App/Models/Curriculo')
   }

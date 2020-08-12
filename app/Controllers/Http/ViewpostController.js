@@ -295,7 +295,7 @@ class ViewpostController {
         } else{ 
             const report = await new Report()
 
-            report.user_id = auth.current.user.id
+            report.reportante_id = auth.current.user.id
             report.report = data.report
             report.post_id = params.id
 
@@ -372,7 +372,7 @@ class ViewpostController {
 
             const report = await new Cvreport()
 
-            report.user_id = auth.current.user.id
+            report.reportante_id = auth.current.user.id
             report.report = data.report
             report.curriculo_id = params.id
 

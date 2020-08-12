@@ -4,9 +4,6 @@
 const Model = use('Model')
 
 class Report extends Model {
-    user () {
-      return this.belongsTo('App/Models/User')
-    }
     posts () {
       return this.belongsTo('App/Models/Post')
     }

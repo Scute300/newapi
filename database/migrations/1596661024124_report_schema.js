@@ -7,7 +7,7 @@ class ReportSchema extends Schema {
   up () {
     this.create('reports', (table) => {
       table.increments()
-      table.integer('user_id').unsigned()
+      table.integer('reportante_id').unsigned()
       table.integer('post_id').unsigned()
       table.string('report', 350).notNullable()
       table.timestamps()

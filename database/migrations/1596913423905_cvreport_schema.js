@@ -7,7 +7,7 @@ class CvreportSchema extends Schema {
   up () {
     this.create('cvreports', (table) => {
       table.increments()
-        table.integer('user_id').unsigned()
+      table.integer('reportante_id').unsigned()
         table.integer('curriculo_id').unsigned()
         table.string('report', 350).notNullable()
       table.timestamps()
