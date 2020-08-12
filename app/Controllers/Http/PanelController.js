@@ -9,8 +9,8 @@ class PanelController {
 
         const pagedata = request.only(['foo']);
         const page = parseInt(pagedata.foo , 10);
-        
         const user = auth.current.user
+        console.log(user.username)
         if(user.username == 'RootAdmin'){
             switch(params.type){
                 case 'reports':
