@@ -8,15 +8,12 @@ class PanelController {
     async getreports({auth,request, response, params}){
         const data = request.only(['page'])
         const user = auth.current.user
-        console.log(user.username)
+        
         if(user.username == 'RootAdmin'){
             let reports = undefined
             switch(params.type){
                 case 'reports':
                     reports = await Report.query()
-                    .with('post', builder => {
-                        builder.with('user')
-                    })
                     .paginate(data.page, 3)
         
                     return response.json({
