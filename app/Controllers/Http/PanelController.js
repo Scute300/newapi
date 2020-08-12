@@ -10,9 +10,10 @@ class PanelController {
         const user = auth.current.user
         console.log(user.username)
         if(user.username == 'RootAdmin'){
+            let reports = undefined
             switch(params.type){
                 case 'reports':
-                    const reports = await Report.query()
+                    reports = await Report.query()
                     .with('post', builder => {
                         builder.with('user')
                     })
@@ -24,7 +25,7 @@ class PanelController {
                     })
                 break
                 case 'curriculums':
-                    const reports = await Cvreport.query()
+                    reports = await Cvreport.query()
                     .with('post', builder => {
                         builder.with('user')
                     })
