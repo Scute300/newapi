@@ -298,6 +298,7 @@ class ViewpostController {
             report.reportante_id = auth.current.user.id
             report.report = data.report
             report.post_id = params.id
+            await report.save()
 
             return response.json({
                 status: 'sure',
@@ -375,6 +376,7 @@ class ViewpostController {
             report.reportante_id = auth.current.user.id
             report.report = data.report
             report.curriculo_id = params.id
+            await report.save()
 
             return response.json({
                 status: 'sure',
