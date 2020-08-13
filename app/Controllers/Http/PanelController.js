@@ -25,9 +25,7 @@ class PanelController {
                 break
                 case 'curriculums':
                     reports = await Cvreport.query()
-                    .with('post', builder => {
-                        builder.with('user')
-                    })
+                    .with('curriculo')
                     .paginate(data.page, 3)
         
                     return response.json({
