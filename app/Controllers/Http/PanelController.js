@@ -15,6 +15,7 @@ class PanelController {
                     reports = await Report.query()
                     .with('post', builder => {
                         builder.with('user')
+                        builder.with('images')
                     })
                     .paginate(data.page, 3)
         
