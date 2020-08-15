@@ -116,7 +116,7 @@ class PanelController {
     
                 case 'post':
                     report = await Report.query()
-                    .where(params.id)
+                    .where('id', params.id)
                     .with('post', builder => {
                         builder.with('user')
                         builder.with('images')
