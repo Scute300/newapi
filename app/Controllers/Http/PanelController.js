@@ -110,8 +110,8 @@ class PanelController {
         const data = request.only('type')
         const user = auth.current.user
         if(user.username == 'RootAdmin'){
-            let report = undefined
-            let reportante = undefined
+            let report = ''
+            let reportante = ''
             switch(data.type){
     
                 case 'post':
