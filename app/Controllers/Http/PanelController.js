@@ -64,27 +64,6 @@ class PanelController {
         }
     }
 
-    async viewreportante({auth,params,response}){
-        const user = await auth.current.user
-        if(user.username == 'RootAdmin'){
-            const report = await Report.findBy('id', params.id)
-            
-            const rjson = await report.toJSON()
-
-            const reportante = await User.findBy('id', rjson.reportante_id)
-
-            return response.json({
-                status: 'sure',
-                data: reportante
-            })
-        }else {
-            return response.status(401).json({
-                status: 'unautorized',
-                data: 'wrong'
-            })
-        }
-    
-    }
 
     async deletecvpost ({auth, response, params}){
         const user = auth.current.user
@@ -107,28 +86,6 @@ class PanelController {
         }
     }
 
-    async viewcvreportante({auth,params,response}){
-        const user = await auth.current.user
-        if(user.username == 'RootAdmin'){
-            const report = await Cvreport.findBy('id', params.id)
-            
-            const rjson = await report.toJSON()
-
-            const reportante = await User.findBy('id', rjson.reportante_id)
-
-            return response.json({
-                status: 'sure',
-                data: reportante
-            })
-        }else {
-            return response.status(401).json({
-                status: 'unautorized',
-                data: 'wrong'
-            })
-        }
-    
-    }
-
     async deleteuser({auth, params, response}){
         const user = auth.current.user
 
@@ -145,6 +102,68 @@ class PanelController {
             return response.status(401).json({
                 status: 'unautorized',
                 data: 'wrong'
+            })
+        }
+    }
+
+    async getonecv({params, auth, request, response}){
+        const data = request.only('type')
+        const user = auth.current.user
+        if(user.username == 'RootAdmin'){
+            let report = undefined
+            let reportante = undefined
+            switch(data.type){
+    
+                case 'post':
+                    report = await Report.query()
+                    .where(params.id)
+                    .with('post', builder => {
+                        builder.with('user')
+                        builder.with('images')
+                    })
+                    .first()
+                    let reporto = await report.toJSON()
+
+                    reportante = await User.query()
+                    .where('id', reporto.reportante_id)
+                    .first()
+
+                    let oreportante = reportante.toJSON()
+
+                    let finalresponse = {report : report, reportante : oreportante}
+
+                    return response.json({
+                        status: 'sure',
+                        data: finalresponse
+                    })
+                break
+                case 'cvreports':
+                    report = await Cvreport.query()
+                    .where('id', params.id)
+                    .with('curriculo')
+                    .first()
+
+                    let reportcvo = await report.toJSON()
+
+                    cvreportante = await User.query()
+                    .where('id', reportcvo.reportante_id)
+                    .first()
+
+                    let ocvreportante = cvreportante.toJSON()
+
+                    let cvfinalresponse = {report : report, reportante : ocvreportante}
+
+                    return response.json({
+                        status: 'sure',
+                        data: cvfinalresponse
+                    })
+                break
+            }
+
+        }else{
+            return response.status(401).json({
+                data: 'wrong',
+                status: 'no autorizado'
             })
         }
     }

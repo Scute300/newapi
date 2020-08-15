@@ -75,8 +75,8 @@ Route.group(()=>{
 
 Route.group(()=>{
   Route.post('/getreports/:type', 'PanelController.getreports')
+  Route.post('/onereport/:id', 'PanelController.getonecv')
   Route.delete('/deletereport/:id', 'PanelController.deletepost')
-  Route.get('/reportante/:id', 'PanelController.viewreportante')
   Route.delete('/deletecvreports/:id', 'PanelController.deletecvpost')
   Route.get('/viewcvreportante/:id', 'PanelController.viewcvreportante')
   Route.delete('/deleteuser/:id', 'PanelController.deleteuser')
