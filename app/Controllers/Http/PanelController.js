@@ -3,6 +3,8 @@ const User = use('App/Models/User')
 const Report = use('App/Models/Report')
 const Cvreport = use('App/Models/Cvreport')
 const Post = use('App/Models/Post')
+const Postimage = use('App/Models/Postimage')
+const Cloudinary = use('Cloudinary');
 
 class PanelController {
 
@@ -50,7 +52,24 @@ class PanelController {
         if(user.username == 'RootAdmin'){
 
             const post = await Post.findBy('id', params.id)
+            const postjson = post.toJSON()
+            
+            const images = await Postimage.query()
+            .where('post_id', postjson.id)
+            .fetch()
+
+            const pimages = images.toJSON()
+    
+            for (let pimage of pimages) {
+                await Cloudinary.v2.uploader.destroy(pimage.publicid)
+            }
+
             await post.delete()
+            
+            const delimages = await Postimage
+            .query()
+            .where('post_id', postjson.id)
+            .delete()
             
             return response.json({
                 status:'sure',

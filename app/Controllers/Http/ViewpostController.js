@@ -58,6 +58,11 @@ class ViewpostController {
 
             await post.delete() 
 
+            const delimages = await Postimage
+            .query()
+            .where('post_id', postjson.id)
+            .delete()
+
             return response.json({
                 status: 'sure',
                 data: 'Eliminado'
