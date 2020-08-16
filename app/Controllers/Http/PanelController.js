@@ -52,6 +52,7 @@ class PanelController {
         if(user.username == 'RootAdmin'){
 
             const post = await Post.findBy('id', params.id)
+            await post.delete()
             
             const images = await Postimage.query()
             .where('post_id', params.id)
@@ -62,8 +63,6 @@ class PanelController {
             for (let pimage of pimages) {
                 await Cloudinary.v2.uploader.destroy(pimage.publicid)
             }
-
-            await post.delete()
 
             const delimages = await Postimage
             .query()
