@@ -120,12 +120,18 @@ class PanelController {
 
 
             for (let pobject of pobjects) {
-                pobject.images.concat(images)
+                await pobject.images.concat(images)
             }
 
 
             for (let image of images) {
                 await Cloudinary.v2.uploader.destroy(image.publicid)
+            }
+
+            for (let upobject of pobjects) {
+                const deletimages = await Postimage.query()
+                .where('post_id', upobject.id)
+                .delete()
             }
 
             const deleteposts = await Post.query()
