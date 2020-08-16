@@ -108,8 +108,34 @@ class PanelController {
         const user = auth.current.user
 
         if(user.username == 'RootAdmin'){
+
+            const posts = await Post.query()
+            .where('user_id', params.id)
+            .with('postimages')
+            .fetch()
+            
+            const pobjects = await posts.toJSON()
+
+            let images = []
+
+
+            for (let pobject of pobjects) {
+                pobject.images.concat(images)
+            }
+
+
+            for (let image of images) {
+                await Cloudinary.v2.uploader.destroy(image.publicid)
+            }
+
+            const deleteposts = await Post.query()
+            .where('user_id', params.id)
+            .delete()
+
+
             const u = await User.findBy('id', params.id)
             await u.delete()
+
 
 
             return response.json({
