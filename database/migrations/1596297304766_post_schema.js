@@ -7,7 +7,7 @@ class PostSchema extends Schema {
   up () {
     this.create('posts', (table) => {
       table.increments()
-      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
+      table.integer('user_id').unsigned()
       table.text('type', 15).notNullable()
       table.text('name', 150).notNullable()
       table.text('location', 90).notNullable()
