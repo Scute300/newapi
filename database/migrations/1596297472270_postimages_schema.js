@@ -7,7 +7,7 @@ class PostimagesSchema extends Schema {
   up () {
     this.create('postimages', (table) => {
       table.increments()
-      table.integer('post_id')
+      table.integer('post_id').references('id').inTable('posts').onDelete('CASCADE')
       table.text('url', 300).notNullable()
       table.string('publicid',100).notNullable()
       table.timestamps()
