@@ -5,18 +5,17 @@ const Schema = use('Schema')
 
 class ReportSchema extends Schema {
   up () {
-    this.table('reports', (table) => {
+    this.create('reports', (table) => {
+      table.increments()
       table.integer('reportante_id').unsigned()
       table.integer('post_id').unsigned().references('id').inTable('posts').onDelete('CASCADE')
       table.string('report', 350).notNullable()
-      // alter table
+      table.timestamps()
     })
   }
 
   down () {
-    this.table('reports', (table) => {
-      // reverse alternations
-    })
+    this.drop('reports')
   }
 }
 
