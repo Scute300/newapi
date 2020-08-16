@@ -111,7 +111,7 @@ class PanelController {
 
             const posts = await Post.query()
             .where('user_id', params.id)
-            .with('postimages')
+            .with('images')
             .fetch()
             
             const pobjects = await posts.toJSON()
