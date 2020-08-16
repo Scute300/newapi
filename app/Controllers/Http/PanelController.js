@@ -2,6 +2,7 @@
 const User = use('App/Models/User')
 const Report = use('App/Models/Report')
 const Cvreport = use('App/Models/Cvreport')
+const Post = use('App/Models/Post')
 
 class PanelController {
 
