@@ -52,10 +52,9 @@ class PanelController {
         if(user.username == 'RootAdmin'){
 
             const post = await Post.findBy('id', params.id)
-            const postjson = await post.toJSON()
             
             const images = await Postimage.query()
-            .where('post_id', postjson.id)
+            .where('post_id', params.id)
             .fetch()
 
             const pimages = await images.toJSON()
@@ -68,7 +67,7 @@ class PanelController {
 
             const delimages = await Postimage
             .query()
-            .where('post_id', postjson.id)
+            .where('post_id', params.id)
             .delete()
             
             return response.json({
