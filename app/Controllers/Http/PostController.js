@@ -11,7 +11,7 @@ class PostController {
     async post ({auth, request, response}){
         const data = request.only(['text', 'name', 'images', 'location' , 'type', 'category', 'price', 'status'])
         const banverify = await Banlist.findBy('user_id', auth.current.user.id)
-        if (banverify !== null){
+        if (banverify == null){
           if(data.type == 'listado'){
           const rules = {
               text: 'required|string|max:1500|min:300',
@@ -207,7 +207,7 @@ class PostController {
     async postcv ({auth, request, response}){
       const data = request.only(['image'])
       const banverify = await Banlist.findBy('user_id', auth.current.user.id)
-      if(banverify !== null){
+      if(banverify == null){
         try { 
         const cv = await Curriculo.findBy('user_id', user.id)
         if (cv== null){

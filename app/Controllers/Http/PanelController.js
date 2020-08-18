@@ -112,7 +112,7 @@ class PanelController {
             const usuario = await User.findBy('id', params.id)
             const usuariobject = await usuario.toJSON()
             const banverify = await Banlist.findBy('user_id', usuariobject.id)
-            if (banverify !== null){
+            if (banverify == null){
                 const ban = await new Banlist()
                 ban.user_id = usuariobject.id
                 ban.email = usuariobject.email

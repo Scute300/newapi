@@ -107,7 +107,7 @@ class UserController {
             } else {
 // validate the user credentials and generate a JWT token
                 const banverify = await Banlist.findBy('email', data.email)
-                if(banverify !== null){
+                if(banverify == null){
 
                     const token = await auth.attempt(
                         data.email, data.password
@@ -207,7 +207,7 @@ class UserController {
 
         const banverify = await Banlist.findBy('user_id', auth.current.user.id)
 
-        if(banverify !== null){
+        if(banverify == null){
             return response.json({
                 status: 'success',
                 data: user
@@ -224,7 +224,7 @@ class UserController {
         const user = auth.current.user
         try{
             const banverify = await Banlist.findBy('user_id', user.id)
-                if(banverify !== null){
+                if(banverify == null){
                 const userData = request.only(['avatar']);
                 
                 if(user.avatar !== 'https://res.cloudinary.com/scute/image/upload/v1566358443/recursos/default_hduxaa.png'){
@@ -331,7 +331,7 @@ class UserController {
         } else {
             const user = auth.current.user
             const banverify = await Banlist.findBy('user_id', user.id)
-            if(banverify !== null){
+            if(banverify == null){
                 user.name = data.name
                 user.cumpleaños = data.cumpleaños
                 user.bio = data.bio
