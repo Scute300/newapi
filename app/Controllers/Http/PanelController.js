@@ -105,22 +105,31 @@ class PanelController {
         }
     }
 
-    async deleteuser({auth, params, response}){
+    async banuser({auth, params, response}){
         const user = auth.current.user
 
         if(user.username == 'RootAdmin'){
             const usuario = await User.findBy('id', params.id)
             const usuariobject = await usuario.toJSON()
+            const banverify = await Banlist.findBy('user_id', usuariobject.id)
+            if (banverify !== null){
+                const ban = await new Banlist()
+                ban.user_id = usuariobject.id
+                ban.email = usuariobject.email
+                await ban.save()
 
-            const ban = await new Banlist()
-            ban.user_id = usuariobject.id
-            ban.email = usuariobject.email
-            await ban.save()
+                return response.json({
+                    status: 'sure',
+                    data: 'Baneado'
+                })
+            }else{
 
-            return response.json({
-                status: 'sure',
-                data: 'Baneado'
-            })
+                return response.json({
+                    status: 'sure',
+                    data: 'Este usuario ya ha sido baneado'
+                })
+
+            }
         }else {
             return response.status(401).json({
                 status: 'unautorized',

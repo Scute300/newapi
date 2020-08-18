@@ -79,7 +79,7 @@ Route.group(()=>{
   Route.delete('/deletepost/:id', 'PanelController.deletepost')
   Route.delete('/deletecvreports/:id', 'PanelController.deletecvpost')
   Route.get('/viewcvreportante/:id', 'PanelController.viewcvreportante')
-  Route.delete('/deleteuser/:id', 'PanelController.deleteuser')
+  Route.post('/banuser/:id', 'PanelController.banuser')
 
 })
 .prefix('api/v2/panel')
