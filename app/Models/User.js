@@ -34,6 +34,9 @@ class User extends Model {
   curriculo () {
     return this.hasOne('App/Models/Curriculo')
   }
+  banlist () {
+    return this.belongsTo('App/Models/Banlist')
+  }
 }
 
 module.exports = User

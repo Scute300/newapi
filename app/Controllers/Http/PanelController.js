@@ -5,6 +5,7 @@ const Cvreport = use('App/Models/Cvreport')
 const Post = use('App/Models/Post')
 const Postimage = use('App/Models/Postimage')
 const Cloudinary = use('Cloudinary');
+const Banlist = use('App/Models/Banlist')
 
 class PanelController {
 
@@ -108,45 +109,17 @@ class PanelController {
         const user = auth.current.user
 
         if(user.username == 'RootAdmin'){
+            const usuario = await User.findBy('id', params.id)
+            const usuariobject = await usuario.toJSON()
 
-            const posts = await Post.query()
-            .where('user_id', params.id)
-            .with('images')
-            .fetch()
-            
-            const pobjects = await posts.toJSON()
-
-            let images = []
-
-
-            for (let pobject of pobjects) {
-                await pobject.images.concat(images)
-            }
-
-
-            for (let image of images) {
-                await Cloudinary.v2.uploader.destroy(image.publicid)
-            }
-
-            for (let upobject of pobjects) {
-                const deletimages = await Postimage.query()
-                .where('post_id', upobject.id)
-                .delete()
-            }
-
-            const deleteposts = await Post.query()
-            .where('user_id', params.id)
-            .delete()
-
-
-            const u = await User.findBy('id', params.id)
-            await u.delete()
-
-
+            const ban = await new Banlist()
+            ban.user_id = usuariobject.id
+            ban.email = usuariobject.email
+            await ban.save()
 
             return response.json({
                 status: 'sure',
-                data: 'Usuario eliminado'
+                data: 'Baneado'
             })
         }else {
             return response.status(401).json({

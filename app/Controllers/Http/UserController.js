@@ -6,6 +6,7 @@ const PasswordReset = use('App/Models/Resetpassword')
 const randomString = require('random-string')
 const Cloudinary = use('Cloudinary')
 const Hash = use('Hash')
+const Banlist = use('App/Models/Banlist')
 
 
 class UserController {
@@ -194,7 +195,8 @@ class UserController {
             .where('id', auth.current.user.id)
             .firstOrFail()
 
-            
+        const banverify = await Banlist.findBy('email', auth.current.user.email)
+        console.log(banverify)
 
         return response.json({
             status: 'success',
