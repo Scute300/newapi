@@ -106,14 +106,24 @@ class UserController {
                 })
             } else {
 // validate the user credentials and generate a JWT token
-                const token = await auth.attempt(
-                    data.email, data.password
-                )
+                const banverify = await Banlist.findBy('email', data.email)
+                if(banverify !== null){
 
-                return response.json({
-                    status: 'success',
-                    data: token
-                })
+                    const token = await auth.attempt(
+                        data.email, data.password
+                    )
+    
+                    return response.json({
+                        status: 'success',
+                        data: token
+                    })
+
+                } else{
+                    return response.status(413).json({
+                        status: 'wrong',
+                        message: 'Estás baneado'
+                    })
+                }
 
                 }
         } catch (error) {
@@ -195,37 +205,53 @@ class UserController {
             .where('id', auth.current.user.id)
             .firstOrFail()
 
-        const banverify = await Banlist.findBy('email', auth.current.user.email)
-        console.log(banverify)
+        const banverify = await Banlist.findBy('user_id', auth.current.user.id)
 
-        return response.json({
-            status: 'success',
-            data: user
-        })
-
-    }
-    async updateProfilePic({ request, auth, response }) {
-        try{
-            const user = auth.current.user
-            const userData = request.only(['avatar']);
-            
-            if(user.avatar !== 'https://res.cloudinary.com/scute/image/upload/v1566358443/recursos/default_hduxaa.png'){
-            
-            const image = user.avatarpublicid
-            await Cloudinary.v2.uploader.destroy(image)
-
-            }
-            const avatar = userData['avatar'];
-            const resultado = await Cloudinary.v2.uploader.upload(avatar);
-
-            user.avatar = resultado.secure_url
-            user.avatarpublicid = resultado.public_id
-            await user.save()
-
+        if(banverify !== null){
             return response.json({
                 status: 'success',
                 data: user
             })
+        } else{
+            return response.status(400).json({
+                status: 'wrong',
+                message : 'No puedes acceder, estás baneado'
+            })
+        }
+
+    }
+    async updateProfilePic({ request, auth, response }) {
+        const user = auth.current.user
+        try{
+            const banverify = await Banlist.findBy('user_id', user.id)
+                if(banverify !== null){
+                const userData = request.only(['avatar']);
+                
+                if(user.avatar !== 'https://res.cloudinary.com/scute/image/upload/v1566358443/recursos/default_hduxaa.png'){
+                
+                const image = user.avatarpublicid
+                await Cloudinary.v2.uploader.destroy(image)
+
+                }
+                const avatar = userData['avatar'];
+                const resultado = await Cloudinary.v2.uploader.upload(avatar);
+
+                user.avatar = resultado.secure_url
+                user.avatarpublicid = resultado.public_id
+                await user.save()
+
+                return response.json({
+                    status: 'success',
+                    data: user
+                })
+            }else{
+
+                return response.status(413).json({
+                    status: 'wrong',
+                    message: 'usuario baneado'
+                })
+
+            }
         }catch(error){
             console.log(error)
             return response.status(404).json({
@@ -304,15 +330,23 @@ class UserController {
             })
         } else {
             const user = auth.current.user
-            user.name = data.name
-            user.cumpleaños = data.cumpleaños
-            user.bio = data.bio
-            await user.save()
-            
-            return response.json({
-                status: 'sure',
-                data:user
-            })
+            const banverify = await Banlist.findBy('user_id', user.id)
+            if(banverify !== null){
+                user.name = data.name
+                user.cumpleaños = data.cumpleaños
+                user.bio = data.bio
+                await user.save()
+                
+                return response.json({
+                    status: 'sure',
+                    data:user
+                })
+            }else {
+                return response.json({
+                    status: 'sure',
+                    data:'usuario baneado'
+                })
+            }
         } 
 
     }
