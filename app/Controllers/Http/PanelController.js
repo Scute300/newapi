@@ -200,6 +200,23 @@ class PanelController {
         }
     }
 
+    async eliminarreporte({auth, response, params}){
+        const user = await auth.current.user
+        if(user.username == 'RootAdmin'){
+            const report = await Report.findBy('id', params.id)
+            await report.delete()
+            return response.json({
+                status: 'sure',
+                data: 'Eliminado'
+            })
+        }else{
+            return response.status(413).json({
+                status: 'wrong',
+                message: 'no estás autorizado'
+            })
+        }
+    }
+
 }
 
 module.exports = PanelController
